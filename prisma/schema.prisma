@@ -1,0 +1,48 @@
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Item {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  content   String
+  images    Image[]
+  published Boolean  @default(false)
+  likes     Int      @default(0)
+  artist    String
+  userId    Int
+  owner     User     @relation(fields: [userId], references: [id])
+  @@index([userId])
+}
+
+model Image {
+  id     Int    @id @default(autoincrement())
+  url    String @unique
+  item   Item?  @relation(fields: [itemId], references: [id])
+  itemId Int?
+  @@index([itemId])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  password  String
+  name      String   @unique
+  role      Role     @default(USER)
+
+  items     Item[] 
+}
+
+enum Role {
+  USER
+  ADMIN
+}
