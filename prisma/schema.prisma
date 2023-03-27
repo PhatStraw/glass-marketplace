@@ -4,19 +4,20 @@ generator client {
 
 datasource db {
   provider             = "mysql"
-  url                  = env("DATABASE_URL")
+  url                  = "mysql://root@127.0.0.1:3309/glass-marketplace"
   relationMode = "prisma"
 }
 
 model Item {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   title     String
   content   String
+  type      GlassType @default(RECYCLER)
   images    Image[]
-  published Boolean  @default(false)
-  likes     Int      @default(0)
+  published Boolean   @default(false)
+  likes     Int       @default(0)
   artist    String
   userId    Int
   owner     User     @relation(fields: [userId], references: [id])
@@ -45,4 +46,11 @@ model User {
 enum Role {
   USER
   ADMIN
+}
+
+enum GlassType {
+  RECYCLER
+  INCLINE
+  TORUS
+  NAIL
 }

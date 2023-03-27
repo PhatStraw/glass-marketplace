@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import FormData from 'form-data';
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import HeroSection from 'components/components/Hero';
 import HomeCard from 'components/components/CuratedCard';
 import SalesCard from 'components/components/SalesCard';
+import { useUser } from '@clerk/nextjs';
 
 export default function App() {
   const [selectedFiles, setSelectedFiles] = useState(null);
@@ -59,12 +60,21 @@ export default function App() {
     const data = await response.json();
     console.log(data);
   };
+    // Use the useUser hook to get the Clerk.user object
+    const { isLoaded, isSignedIn, user } = useUser()
+  console.log('USER', user)
 
   return (
     <Box>
       <HeroSection />
       <HomeCard />
+      <Box p={1}>
+      <Typography m={1} sx={{fontSize: '18px', p: 1, fontWeight: 'bold'}} gutterBottom>
+        Sales & Featured Collections
+      </Typography>
       <SalesCard />
+      <SalesCard />
+      </Box>
     </Box>
     // <form onSubmit={handleSubmit}>
     //   <input type="text" name="title" multiple onChange={handleTitleChange} />

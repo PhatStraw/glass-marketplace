@@ -40,7 +40,7 @@ const itemData = [
 
 export default function HomeCard() {
   return (
-    <Box sx={{padding: '1.5rem 1rem'}}>
+    <Box sx={{padding: '1rem 1rem 1.5rem 1rem'}}>
       <Typography sx={{fontSize: '18px', p: 1, fontWeight: 'bold'}} gutterBottom>
         Shop By Artist
       </Typography>

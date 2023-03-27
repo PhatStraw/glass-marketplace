@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button, Container, Typography } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import dodo from '../../public/dab.jpg'
@@ -43,9 +44,11 @@ function HeroSection() {
         <Typography variant="subtitle1" sx={{fontSize: '18px', padding: '.5rem 0'}} gutterBottom>
             Buy, sell, discover authenticated pieces from the worlds top artist.
         </Typography>
-        <HeroButton variant="outlined">
-          Shop Glass
-        </HeroButton>
+        <Link href='/shop'>
+          <HeroButton variant="outlined" sx={{textDecoration: 'none'}}>
+            Shop Glass
+          </HeroButton>
+        </Link>
       </HeroText>
     </HeroContainer>
   );
