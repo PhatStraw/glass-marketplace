@@ -2,9 +2,13 @@ import * as React from "react";
 import { useEffect, useCallback } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import { Image } from "@mui/icons-material";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Typography,
+} from "@mui/material";
+import ItemFilter from "./filter";
+
 
 const itemData = [
   {
@@ -149,21 +153,7 @@ export default function Feed() {
   }, [onScroll]);
   return (
     <Box pt={2}>
-      <Box
-        sx={{
-          display: "flex",
-          alignContent: "center",
-          justifyContent: "space-between",
-          mb: 2,
-          padding: "0 20px",
-        }}
-        id="navbar"
-      >
-        <Typography sx={{ fontSize: "18px", fontWeight: "bold" }} gutterBottom>
-          {itemData.length} Listings
-        </Typography>
-        <Button sx={{ background: "black", color: "white" }}>FILTER</Button>
-      </Box>
+      <ItemFilter itemData={itemData} le={itemData.length}/>
       <Divider />
       <Box sx={{ padding: "1rem 1rem 1.5rem 1rem" }}>
         <ImageList cols={2} gap={10} rowHeight={365}>

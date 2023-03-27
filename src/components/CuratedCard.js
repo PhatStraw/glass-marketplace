@@ -42,7 +42,7 @@ export default function HomeCard() {
   return (
     <Box sx={{padding: '1rem 1rem 1.5rem 1rem'}}>
       <Typography sx={{fontSize: '18px', p: 1, fontWeight: 'bold'}} gutterBottom>
-        Shop By Artist
+        Featured Artist
       </Typography>
       <ImageList cols={3} gap={16} rowHeight={150}>
         {itemData.map((item) => (
