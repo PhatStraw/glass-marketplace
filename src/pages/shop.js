@@ -1,7 +1,7 @@
 import { Box, Typography, Divider } from "@mui/material";
-import HomeCard from "./components/CuratedCard";
-import Feed from "./components/feed";
-import SalesCard from "./components/SalesCard";
+import HomeCard from "../components/CuratedCard";
+import Feed from "../components/feed";
+import SalesCard from "../components/SalesCard";
 
 export default function Shop(){
     return(
