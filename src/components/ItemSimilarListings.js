@@ -6,21 +6,14 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "next/link";
 import {
   Box,
-  Button,
   Typography,
-  Drawer,
-  List,
   ListItemButton,
-  ListItemIcon,
   Divider,
   ListItemText,
   ImageList,
   ImageListItem,
-  Collapse,
 } from "@mui/material";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 export default function ItemSimilarListings(props){
     return(
         <Box>
@@ -31,7 +24,7 @@ export default function ItemSimilarListings(props){
           />
           <Box sx={{ display: "flex", alignItems: "center", color: "blue" }}>
             SEE MORE
-            <ExpandMore />
+            <ArrowForwardIosIcon fontSize="small"/>
           </Box>
         </ListItemButton>
         <Box sx={{ padding: "1rem 1rem 1.5rem 1rem" }}>

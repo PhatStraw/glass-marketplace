@@ -1,26 +1,9 @@
 import { useRouter } from "next/router";
 import React from "react";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "next/link";
 import {
   Box,
-  Button,
-  Typography,
-  Drawer,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  Divider,
-  ListItemText,
-  ImageList,
-  ImageListItem,
-  Collapse,
 } from "@mui/material";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import ItemDescription from "../../components/itemDescription"
+import ItemDescription from "../../components/itemDescription.js"
 import ItemSwipe from "../../components/itemSwipe";
 import ItemDetails from "../../components/itemDetails"
 import ItemSimilarListings from "../../components/itemSimilarListings"
