@@ -24,6 +24,7 @@ import ItemDescription from "../../components/itemDescription"
 import ItemSwipe from "../../components/itemSwipe";
 import ItemDetails from "../../components/itemDetails"
 import ItemSimilarListings from "../../components/itemSimilarListings"
+
 const itemData = [
   {
     id: "1",
