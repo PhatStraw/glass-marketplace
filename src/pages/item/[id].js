@@ -3,10 +3,10 @@ import React from "react";
 import {
   Box,
 } from "@mui/material";
-import ItemDescription from "../../components/itemDescription.js"
-import ItemSwipe from "../../components/itemSwipe";
-import ItemDetails from "../../components/itemDetails"
-import ItemSimilarListings from "../../components/itemSimilarListings"
+import ItemDescription from "../../components/itemDescriptions"
+import ItemSwipe from "../../components/itemSwipes";
+import ItemDetails from "../../components/itemDetail"
+import ItemSimilarListings from "../../components/itemSimilarListing"
 
 const itemData = [
   {
