@@ -7,126 +7,150 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import Link from 'next/link';
 import ItemFilter from "./filter";
-
 
 const itemData = [
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
     artist: "Breakfast",
     author: "@bkristastucchio",
   },
   {
+      id: "12",
     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
     artist: "Burger",
     author: "@rollelflex_graphy726",
   },
   {
+      id: "13",
     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
+      id: "14",
     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
+      id: "15",
     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
+      id: "16",
     img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
     artist: "Honey",
     author: "@arwinneil",
   },
   {
+      id: "17",
     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
     artist: "Breakfast",
     author: "@bkristastucchio",
   },
   {
+      id: "18",
     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
     artist: "Burger",
     author: "@rollelflex_graphy726",
   },
   {
+      id: "19",
     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
+      id: "20",
     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
+      id: "21",
     img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
     artist: "Honey",
     author: "@arwinneil",
   },
   {
+      id: "31",
     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
     artist: "Breakfast",
     author: "@bkristastucchio",
   },
   {
+      id: "41",
     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
     artist: "Burger",
     author: "@rollelflex_graphy726",
   },
   {
+      id: "51",
     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
+      id: "61",
     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
+      id: "616",
     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
+      id: "661",
     img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
     artist: "Honey",
     author: "@arwinneil",
   },
   {
+      id: "617",
     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
     artist: "Breakfast",
     author: "@bkristastucchio",
   },
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
     artist: "Burger",
     author: "@rollelflex_graphy726",
   },
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
+      id: "1",
     img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
     artist: "Honey",
     author: "@arwinneil",
@@ -158,62 +182,64 @@ export default function Feed() {
       <Box sx={{ padding: "1rem 1rem 1.5rem 1rem" }}>
         <ImageList cols={2} gap={10} rowHeight={365}>
           {itemData.map((item) => (
-            <ImageListItem key={item.img}>
-              <img
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.artist}
-                loading="lazy"
-              />
-              <Box pt={1}>
-                <Divider />
-                <Box
-                  sx={{
-                    padding: "15px 10px 0 10px",
-                    m: 0,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  <Typography
-                    sx={{ p: 0, m: 0, fontWeight: "bold", lineHeight: "10px" }}
-                    gutterBottom
-                  >
-                    {item.artist}
-                  </Typography>
-                  <Box m={0} p={0} fontWeight="bold">
-                    {"4in"}
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    padding: "0px 10px",
-                    m: 0,
-                  }}
-                >
-                  <Box
+              <Link style={{ textDecoration: 'none', color: 'black' }} key={item.id} href={`/item/${item.id}`}>
+                <ImageListItem key={item.img}>
+                <img
+                    src={`${item.img}?w=248&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.artist}
+                    loading="lazy"
+                />
+                <Box pt={1}>
+                    <Divider />
+                    <Box
                     sx={{
-                      padding: "8px 0",
-                      fontSize: "14px",
+                        padding: "15px 10px 0 10px",
+                        m: 0,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        width: "100%",
                     }}
-                  >
-                    {
-                      [
-                        "Glowing Dragon",
-                        "The Rasta Swirl",
-                        "The Crystal Skull",
-                        "The Rainbow Sherbet",
-                      ][Math.floor(Math.random() * 4)]
-                    }
-                  </Box>
-                  <Box sx={{ fontWeight: "bold", pb: 2, fontSize: "14px" }}>
-                    ${Math.floor(Math.random() * 1000) + 1}
-                  </Box>
+                    >
+                    <Typography
+                        sx={{ p: 0, m: 0, fontWeight: "bold", lineHeight: "10px" }}
+                        gutterBottom
+                    >
+                        {item.artist}
+                    </Typography>
+                    <Box m={0} p={0} fontWeight="bold">
+                        {"4in"}
+                    </Box>
+                    </Box>
+                    <Box
+                    sx={{
+                        padding: "0px 10px",
+                        m: 0,
+                    }}
+                    >
+                    <Box
+                        sx={{
+                        padding: "8px 0",
+                        fontSize: "14px",
+                        }}
+                    >
+                        {
+                        [
+                            "Glowing Dragon",
+                            "The Rasta Swirl",
+                            "The Crystal Skull",
+                            "The Rainbow Sherbet",
+                        ][Math.floor(Math.random() * 4)]
+                        }
+                    </Box>
+                    <Box sx={{ fontWeight: "bold", pb: 2, fontSize: "14px" }}>
+                        ${Math.floor(Math.random() * 1000) + 1}
+                    </Box>
+                    </Box>
                 </Box>
-              </Box>
-            </ImageListItem>
+                </ImageListItem>
+              </Link>
           ))}
         </ImageList>
       </Box>

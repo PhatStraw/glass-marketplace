@@ -15,6 +15,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FireplaceIcon from "@mui/icons-material/Fireplace";
 import Checkbox from '@mui/material/Checkbox';
 import WaterIcon from '@mui/icons-material/Water';
+import PaletteIcon from '@mui/icons-material/Palette';
 
 
 
@@ -134,6 +135,53 @@ export default function ItemFilter(props){
               </List>
             </Collapse>
           </List>
+          <List sx={{ zIndex: 10000, width: '80vw' }}>
+            <ListItemButton onClick={handleClick}>
+              <ListItemIcon>
+                <PaletteIcon />
+              </ListItemIcon>
+              <ListItemText primary="Color" />
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+                  <ListItemIcon>
+                  <Checkbox
+                  edge="start"
+                  checked={checked}
+                  tabIndex={-1}
+                  disableRipple
+                />
+                  </ListItemIcon>
+                  <ListItemText primary="Red" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+                  <ListItemIcon>
+                  <Checkbox
+                  edge="start"
+                  checked={checked}
+                  tabIndex={-1}
+                  disableRipple
+                />
+                  </ListItemIcon>
+                  <ListItemText primary="Blue" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+                  <ListItemIcon>
+                  <Checkbox
+                  edge="start"
+                  checked={checked}
+                  tabIndex={-1}
+                  disableRipple
+                />
+                  </ListItemIcon>
+                  <ListItemText primary="Green" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </List>
+        <Button sx={{width: '80%', bottom: 0, top: 'auto', background: 'blue', color: 'white', position: 'fixed'}}>Search</Button>
         </Drawer>
       </Box>
     )

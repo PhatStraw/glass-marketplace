@@ -148,23 +148,22 @@ function ResponsiveAppBar() {
           disableGutters
         >
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
-              pr: 6,
+              pr: 8,
               display: { xs: "flex" },
               flexGrow: 1,
-              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
+              letterSpacing: ".1rem",
               color: "inherit",
               textDecoration: "none",
               maxWidth: "10rem",
             }}
           >
-            LOGO
+            Headies
           </Typography>
 
           <Search>
