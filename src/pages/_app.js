@@ -1,7 +1,7 @@
-import Layout from 'components/components/layout'
+import Layout from '../components/layout'
 import { StyledEngineProvider } from '@mui/material/styles';
 import { ClerkProvider, SignUp } from '@clerk/nextjs';
-import 'components/styles/globals.css'
+import '../styles/globals.css'
 // pages/_app.js
 import { Roboto } from 'next/font/google'
 

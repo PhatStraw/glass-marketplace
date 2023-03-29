@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import FormData from 'form-data';
 import { Box, Typography } from '@mui/material'
-import HeroSection from 'components/components/Hero';
-import HomeCard from 'components/components/CuratedCard';
-import SalesCard from 'components/components/SalesCard';
+import HeroSection from '../components/Hero';
+import HomeCard from '../components/CuratedCard';
+import SalesCard from '../components/SalesCard';
 import { useUser } from '@clerk/nextjs';
 
 export default function App() {
