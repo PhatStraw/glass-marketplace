@@ -20,10 +20,10 @@ import {
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import ItemDescription from "components/components/itemDescription";
-import ItemSwipe from "components/components/itemSwipe";
-import ItemDetails from "components/components/itemDetails"
-import ItemSimilarListings from "components/components/itemSimilarListings"
+import ItemDescription from "components/itemDescription";
+import ItemSwipe from "components/itemSwipe";
+import ItemDetails from "components/itemDetails"
+import ItemSimilarListings from "components/itemSimilarListings"
 const itemData = [
   {
     id: "1",
