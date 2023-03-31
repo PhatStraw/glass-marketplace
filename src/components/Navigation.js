@@ -4,16 +4,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import { Drawer } from "@mui/material";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import InputBase from "@mui/material/InputBase";
@@ -27,12 +22,11 @@ import {
   Divider,
 } from "@mui/material";
 import { ListItemIcon } from "@mui/material";
-import { useUser } from "@clerk/nextjs";
-const settings = ["Designers", "Sell", "Shop", "Logout"];
+import {
+  useUser
+} from "@clerk/nextjs";
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -40,22 +34,7 @@ function ResponsiveAppBar() {
     right: false,
   });
 
-  const { isLoaded, isSignedIn, user } = useUser();
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const { isSignedIn } = useUser();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -76,14 +55,20 @@ function ResponsiveAppBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Designers", "Sell", "Shop", "Logout"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+      <ListItem disablePadding sx={{fontWeight: '700'}}>
+        <Link href={"/profile"} style={{textDecoration: 'none', padding: 0, margin: 0, color: 'black'}}>
+          <ListItemButton sx={{fontWeight: '700'}}>
+                <ListItemText  primary={"Profile"} />
+          </ListItemButton>
+        </Link>
+                </ListItem>
+        {["designers", "sell", "shop", "logout"].map((text, index) => (
+          <ListItem key={text} disablePadding sx={{fontWeight: '700'}}>
+                    <Link href={`/${text}`} style={{textDecoration: 'none', padding: 0, margin: 0, color: 'black'}}>
+                      <ListItemButton sx={{fontWeight: '700'}}>
+                        <ListItemText  primary={text.toUpperCase()} />
+                      </ListItemButton>
+                    </Link>
           </ListItem>
         ))}
       </List>
@@ -201,7 +186,7 @@ function ResponsiveAppBar() {
                 </Button>
               </Link>
             ) : (
-              <Link href="/sign-up" sx={{ border: "none" }}>
+              <Link href="/sign-in" sx={{ border: "none" }}>
                 <Button
                   key="login"
                   sx={{
@@ -211,7 +196,7 @@ function ResponsiveAppBar() {
                     fontWeight: "bold",
                   }}
                 >
-                  SIGN UP
+                  SIGN IN
                 </Button>
               </Link>
             )}

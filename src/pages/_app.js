@@ -3,10 +3,10 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import { ClerkProvider, SignUp } from '@clerk/nextjs';
 import '../styles/globals.css'
 // pages/_app.js
-import { Roboto } from 'next/font/google'
+import { Kanit } from 'next/font/google'
 
 // If loading a variable font, you don't need to specify the font weight
-const roboto = Roboto({ subsets: ['latin'], weight: '400' })
+const roboto = Kanit({ subsets: ['latin'], weight: '400' })
 
 export default function App({ Component, pageProps }) {
   return (

@@ -77,7 +77,7 @@ export default function ItemSimilarListings(props){
                     >
                       <Box
                         sx={{
-                          padding: "8px 0",
+                          padding: "4px 0",
                           fontSize: "14px",
                         }}
                       >

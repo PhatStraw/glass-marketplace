@@ -13,145 +13,145 @@ import ItemFilter from "./filter";
 const itemData = [
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    artist: "Breakfast",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPbYwxrqkmR88ucL7hd8-L6BPlnfRRxGslb0ksvOLlQ&usqp=CAU&ec=48665701",
+    artist: "Darby Holmes",
     author: "@bkristastucchio",
   },
   {
       id: "12",
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    artist: "Burger",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC7LszS253vG32i6xGbxuhXTDbAEE8YUBzAdgXbI5R_Q&usqp=CAU&ec=48665701",
+    artist: "Eushene",
     author: "@rollelflex_graphy726",
   },
   {
       id: "13",
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqfnjVd3VZKSUHvsHWKPFwQ9XAVabFOxcT8xIH2LyCxw&usqp=CAU&ec=48665701",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
       id: "14",
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBxmmnKRsLp1ed9Hfwu3-6Pi82f8LnHMTMDeJpESEqQ&usqp=CAU&ec=48665701",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
       id: "15",
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqp5boV7FerSQMNZOIc9SKhHWB8dRWVNYIieCpYLy3U7lBfkepEgDFAQIV1n1z4n02utv1SaY2bcs&usqp=CAU&ec=48665701",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
       id: "16",
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3460XQ0ZrqLiM1_rCFtK05YbNe_67ZqCske595Tm80Hip2GTZAS0JhtMVk3LHQKcFGJMYftmf9n4&usqp=CAU&ec=48665701",
     artist: "Honey",
     author: "@arwinneil",
   },
   {
       id: "17",
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    artist: "Breakfast",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPbYwxrqkmR88ucL7hd8-L6BPlnfRRxGslb0ksvOLlQ&usqp=CAU&ec=48665701",
+    artist: "Darby Holmes",
     author: "@bkristastucchio",
   },
   {
       id: "18",
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    artist: "Burger",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC7LszS253vG32i6xGbxuhXTDbAEE8YUBzAdgXbI5R_Q&usqp=CAU&ec=48665701",
+    artist: "Eushene",
     author: "@rollelflex_graphy726",
   },
   {
       id: "19",
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqfnjVd3VZKSUHvsHWKPFwQ9XAVabFOxcT8xIH2LyCxw&usqp=CAU&ec=48665701",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
       id: "20",
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBxmmnKRsLp1ed9Hfwu3-6Pi82f8LnHMTMDeJpESEqQ&usqp=CAU&ec=48665701",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqp5boV7FerSQMNZOIc9SKhHWB8dRWVNYIieCpYLy3U7lBfkepEgDFAQIV1n1z4n02utv1SaY2bcs&usqp=CAU&ec=48665701",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
       id: "21",
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3460XQ0ZrqLiM1_rCFtK05YbNe_67ZqCske595Tm80Hip2GTZAS0JhtMVk3LHQKcFGJMYftmf9n4&usqp=CAU&ec=48665701",
     artist: "Honey",
     author: "@arwinneil",
   },
   {
       id: "31",
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    artist: "Breakfast",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPbYwxrqkmR88ucL7hd8-L6BPlnfRRxGslb0ksvOLlQ&usqp=CAU&ec=48665701",
+    artist: "Darby Holmes",
     author: "@bkristastucchio",
   },
   {
       id: "41",
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    artist: "Burger",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC7LszS253vG32i6xGbxuhXTDbAEE8YUBzAdgXbI5R_Q&usqp=CAU&ec=48665701",
+    artist: "Eushene",
     author: "@rollelflex_graphy726",
   },
   {
       id: "51",
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqfnjVd3VZKSUHvsHWKPFwQ9XAVabFOxcT8xIH2LyCxw&usqp=CAU&ec=48665701",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
       id: "61",
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBxmmnKRsLp1ed9Hfwu3-6Pi82f8LnHMTMDeJpESEqQ&usqp=CAU&ec=48665701",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
       id: "616",
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqp5boV7FerSQMNZOIc9SKhHWB8dRWVNYIieCpYLy3U7lBfkepEgDFAQIV1n1z4n02utv1SaY2bcs&usqp=CAU&ec=48665701",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
       id: "661",
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3460XQ0ZrqLiM1_rCFtK05YbNe_67ZqCske595Tm80Hip2GTZAS0JhtMVk3LHQKcFGJMYftmf9n4&usqp=CAU&ec=48665701",
     artist: "Honey",
     author: "@arwinneil",
   },
   {
       id: "617",
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    artist: "Breakfast",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPbYwxrqkmR88ucL7hd8-L6BPlnfRRxGslb0ksvOLlQ&usqp=CAU&ec=48665701",
+    artist: "Darby Holmes",
     author: "@bkristastucchio",
   },
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    artist: "Burger",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC7LszS253vG32i6xGbxuhXTDbAEE8YUBzAdgXbI5R_Q&usqp=CAU&ec=48665701",
+    artist: "Eushene",
     author: "@rollelflex_graphy726",
   },
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqfnjVd3VZKSUHvsHWKPFwQ9XAVabFOxcT8xIH2LyCxw&usqp=CAU&ec=48665701",
     artist: "Camera",
     author: "@helloimnik",
   },
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBxmmnKRsLp1ed9Hfwu3-6Pi82f8LnHMTMDeJpESEqQ&usqp=CAU&ec=48665701",
     artist: "Coffee",
     author: "@nolanissac",
   },
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqp5boV7FerSQMNZOIc9SKhHWB8dRWVNYIieCpYLy3U7lBfkepEgDFAQIV1n1z4n02utv1SaY2bcs&usqp=CAU&ec=48665701",
     artist: "Hats",
     author: "@hjrc33",
   },
   {
       id: "1",
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3460XQ0ZrqLiM1_rCFtK05YbNe_67ZqCske595Tm80Hip2GTZAS0JhtMVk3LHQKcFGJMYftmf9n4&usqp=CAU&ec=48665701",
     artist: "Honey",
     author: "@arwinneil",
   },
@@ -203,12 +203,12 @@ export default function Feed() {
                     }}
                     >
                     <Typography
-                        sx={{ p: 0, m: 0, fontWeight: "bold", lineHeight: "10px" }}
+                        sx={{ p: 0, m: 0, fontSize: '12px', fontWeight: "bold", lineHeight: "10px" }}
                         gutterBottom
                     >
-                        {item.artist}
+                        {item.artist.toUpperCase()}
                     </Typography>
-                    <Box m={0} p={0} fontWeight="bold">
+                    <Box m={0} p={0} fontSize={12} fontWeight="bold">
                         {"4in"}
                     </Box>
                     </Box>
@@ -220,8 +220,8 @@ export default function Feed() {
                     >
                     <Box
                         sx={{
-                        padding: "8px 0",
-                        fontSize: "14px",
+                        padding: "4px 0",
+                        fontSize: "12px",
                         }}
                     >
                         {
@@ -233,9 +233,9 @@ export default function Feed() {
                         ][Math.floor(Math.random() * 4)]
                         }
                     </Box>
-                    <Box sx={{ fontWeight: "bold", pb: 2, fontSize: "14px" }}>
+                    <Typography sx={{ fontWeight: 'bold', pb: 2, fontSize: "13px" }}>
                         ${Math.floor(Math.random() * 1000) + 1}
-                    </Box>
+                    </Typography>
                     </Box>
                 </Box>
                 </ImageListItem>
