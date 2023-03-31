@@ -8,38 +8,38 @@ import { Box, Typography } from "@mui/material";
 const itemData = [
   {
       id: "617",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPbYwxrqkmR88ucL7hd8-L6BPlnfRRxGslb0ksvOLlQ&usqp=CAU&ec=48665701",
+    img: "https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_6935_580x@2x.jpg?v=1670198543",
     artist: "Darby Holmes",
     author: "@bkristastucchio",
   },
   {
       id: "1",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC7LszS253vG32i6xGbxuhXTDbAEE8YUBzAdgXbI5R_Q&usqp=CAU&ec=48665701",
+    img: "https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_7447_66f4c446-cb3b-44a2-9311-1e8c97084970_580x@2x.jpg?v=1672014458",
     artist: "Eushene",
     author: "@rollelflex_graphy726",
   },
   {
       id: "1",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqfnjVd3VZKSUHvsHWKPFwQ9XAVabFOxcT8xIH2LyCxw&usqp=CAU&ec=48665701",
-    artist: "Camera",
+    img: "https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_7463_7e6179f1-cecb-4420-a93c-1039149efe17_580x@2x.jpg?v=1672014745",
+    artist: "Earl Jr",
     author: "@helloimnik",
   },
   {
       id: "1",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBxmmnKRsLp1ed9Hfwu3-6Pi82f8LnHMTMDeJpESEqQ&usqp=CAU&ec=48665701",
-    artist: "Coffee",
+    img: "https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_3766_580x@2x.jpg?v=1662672077",
+    artist: "Immaculate",
     author: "@nolanissac",
   },
   {
       id: "1",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqp5boV7FerSQMNZOIc9SKhHWB8dRWVNYIieCpYLy3U7lBfkepEgDFAQIV1n1z4n02utv1SaY2bcs&usqp=CAU&ec=48665701",
-    artist: "Hats",
+    img: "https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_3744_580x@2x.jpg?v=1662670866",
+    artist: "Nitro",
     author: "@hjrc33",
   },
   {
       id: "1",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3460XQ0ZrqLiM1_rCFtK05YbNe_67ZqCske595Tm80Hip2GTZAS0JhtMVk3LHQKcFGJMYftmf9n4&usqp=CAU&ec=48665701",
-    artist: "Honey",
+    img: "https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_3753_580x@2x.jpg?v=1662670678",
+    artist: "Elbo",
     author: "@arwinneil",
   },
 ];

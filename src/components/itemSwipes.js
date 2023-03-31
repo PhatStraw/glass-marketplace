@@ -21,19 +21,20 @@ export default function ItemSwipe(){
       >
         <SwiperSlide>
           <img
-            src={`https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=390&fit=crop&auto=format`}
-            srcSet={`https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=390&fit=crop&auto=format&dpr=2 2x`}
-            alt={"honey"}
+            src={`https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_9606_580x@2x.jpg?v=1619898577?w=390&fit=crop&auto=format`}
+            srcSet={`https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_9606_580x@2x.jpg?v=1619898577?w=390&fit=crop&auto=format&dpr=2 2x`}
+            alt={"Elbo"}
             loading="lazy"
-            style={{ height: "300px", width: "100%" }}
+            style={{ height: "400px", width: "100%" }}
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src={`https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=400&fit=crop&auto=format`}
-            srcSet={`https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=400&fit=crop&auto=format&dpr=2 2x`}
-            alt={"honey"}
+            src={`https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_9606_580x@2x.jpg?v=1619898577?w=390&fit=crop&auto=format`}
+            srcSet={`https://cdn.shopify.com/s/files/1/1597/7307/products/DSC_9606_580x@2x.jpg?v=1619898577?w=390&fit=crop&auto=format&dpr=2 2x`}
+            alt={"Elbo"}
             loading="lazy"
+            style={{ height: "400px", width: "100%" }}
           />
         </SwiperSlide>
       </Swiper>
