@@ -7,35 +7,41 @@ import { Box, Typography } from "@mui/material";
 
 const itemData = [
   {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
+      id: "617",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPbYwxrqkmR88ucL7hd8-L6BPlnfRRxGslb0ksvOLlQ&usqp=CAU&ec=48665701",
+    artist: "Darby Holmes",
     author: "@bkristastucchio",
   },
   {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
+      id: "1",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC7LszS253vG32i6xGbxuhXTDbAEE8YUBzAdgXbI5R_Q&usqp=CAU&ec=48665701",
+    artist: "Eushene",
     author: "@rollelflex_graphy726",
   },
   {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
+      id: "1",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqfnjVd3VZKSUHvsHWKPFwQ9XAVabFOxcT8xIH2LyCxw&usqp=CAU&ec=48665701",
+    artist: "Camera",
     author: "@helloimnik",
   },
   {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
+      id: "1",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBxmmnKRsLp1ed9Hfwu3-6Pi82f8LnHMTMDeJpESEqQ&usqp=CAU&ec=48665701",
+    artist: "Coffee",
     author: "@nolanissac",
   },
   {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
+      id: "1",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqp5boV7FerSQMNZOIc9SKhHWB8dRWVNYIieCpYLy3U7lBfkepEgDFAQIV1n1z4n02utv1SaY2bcs&usqp=CAU&ec=48665701",
+    artist: "Hats",
     author: "@hjrc33",
   },
   {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
+      id: "1",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3460XQ0ZrqLiM1_rCFtK05YbNe_67ZqCske595Tm80Hip2GTZAS0JhtMVk3LHQKcFGJMYftmf9n4&usqp=CAU&ec=48665701",
+    artist: "Honey",
     author: "@arwinneil",
-  }
+  },
 ];
 
 export default function HomeCard() {
@@ -44,7 +50,7 @@ export default function HomeCard() {
       <Typography sx={{fontSize: '18px', p: 1, fontWeight: 'bold'}} gutterBottom>
         Featured Artist
       </Typography>
-      <ImageList cols={3} gap={16} rowHeight={150}>
+      <ImageList cols={3} gap={16} rowHeight={200}>
         {itemData.map((item) => (
           <ImageListItem key={item.img}>
             <img
@@ -54,7 +60,7 @@ export default function HomeCard() {
               loading="lazy"
             />
             <ImageListItemBar
-              title={item.title}
+              title={item.artist}
               position="below"
               sx={{ textAlign: "center" }}
             />
