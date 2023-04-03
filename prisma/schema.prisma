@@ -1,10 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = "mysql://root@127.0.0.1:3309/glass-marketplace"
+  provider     = "mysql"
+  url          = "mysql://root@127.0.0.1:3309/glass-marketplace"
   relationMode = "prisma"
 }
 
@@ -20,7 +20,8 @@ model Item {
   likes     Int       @default(0)
   artist    String
   userId    Int
-  owner     User     @relation(fields: [userId], references: [id])
+  owner     User      @relation(fields: [userId], references: [id])
+
   @@index([userId])
 }
 
@@ -29,6 +30,7 @@ model Image {
   url    String @unique
   item   Item?  @relation(fields: [itemId], references: [id])
   itemId Int?
+
   @@index([itemId])
 }
 
@@ -39,8 +41,7 @@ model User {
   password  String
   name      String   @unique
   role      Role     @default(USER)
-
-  items     Item[] 
+  items     Item[]   @relation()
 }
 
 enum Role {
