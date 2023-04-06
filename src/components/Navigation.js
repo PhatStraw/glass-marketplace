@@ -22,9 +22,7 @@ import {
   Divider,
 } from "@mui/material";
 import { ListItemIcon } from "@mui/material";
-import {
-  useUser
-} from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 function ResponsiveAppBar() {
   const [state, setState] = React.useState({
@@ -35,6 +33,7 @@ function ResponsiveAppBar() {
   });
 
   const { isSignedIn } = useUser();
+  const authVal = isSignedIn ? "logout" : "sign-in";
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -55,20 +54,40 @@ function ResponsiveAppBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-      <ListItem disablePadding sx={{fontWeight: '700'}}>
-        <Link href={"/profile"} style={{textDecoration: 'none', padding: 0, margin: 0, color: 'black'}}>
-          <ListItemButton sx={{fontWeight: '700'}}>
-                <ListItemText  primary={"Profile"} />
-          </ListItemButton>
-        </Link>
-                </ListItem>
-        {["designers", "sell", "shop", "logout"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{fontWeight: '700'}}>
-                    <Link href={`/${text}`} style={{textDecoration: 'none', padding: 0, margin: 0, color: 'black'}}>
-                      <ListItemButton sx={{fontWeight: '700'}}>
-                        <ListItemText  primary={text.toUpperCase()} />
-                      </ListItemButton>
-                    </Link>
+        {isSignedIn ? (
+          <ListItem disablePadding sx={{ fontWeight: "700" }}>
+            <Link
+              href={"/account"}
+              style={{
+                textDecoration: "none",
+                padding: 0,
+                margin: 0,
+                color: "black",
+              }}
+            >
+              <ListItemButton sx={{ fontWeight: "700" }}>
+                <ListItemText primary={"ACCOUNT"} />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        ) : (
+          <></>
+        )}
+        {["designers", "sell", "shop", authVal].map((text, index) => (
+          <ListItem key={text} disablePadding sx={{ fontWeight: "700" }}>
+            <Link
+              href={`/${text}`}
+              style={{
+                textDecoration: "none",
+                padding: 0,
+                margin: 0,
+                color: "black",
+              }}
+            >
+              <ListItemButton sx={{ fontWeight: "700" }}>
+                <ListItemText primary={text.toUpperCase()} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -186,7 +205,7 @@ function ResponsiveAppBar() {
                 </Button>
               </Link>
             ) : (
-              <Link href="/sign-in" sx={{ border: "none" }}>
+              <Link href="/sign-in">
                 <Button
                   key="login"
                   sx={{
@@ -194,6 +213,7 @@ function ResponsiveAppBar() {
                     color: "black",
                     fontSize: "12px",
                     fontWeight: "bold",
+                    textDecoration: "none",
                   }}
                 >
                   SIGN IN

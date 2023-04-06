@@ -23,6 +23,33 @@ export default async function handler(
       const params = {
         mode: 'payment',
         payment_method_types: ['card'],
+        shipping_address_collection: {
+          allowed_countries: ['US', 'CA'],
+        },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: {amount: 0, currency: 'usd'},
+              display_name: 'Free shipping',
+              delivery_estimate: {
+                minimum: {unit: 'business_day', value: 5},
+                maximum: {unit: 'business_day', value: 7},
+              },
+            },
+          },
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: {amount: 1500, currency: 'usd'},
+              display_name: 'Next day air',
+              delivery_estimate: {
+                minimum: {unit: 'business_day', value: 1},
+                maximum: {unit: 'business_day', value: 1},
+              },
+            },
+          },
+        ],
         line_items: [
           {
             price_data: {
@@ -33,56 +60,15 @@ export default async function handler(
               unit_amount: formatAmountForStripe(amount, "USD"),
             },
             quantity: 1,
-          },
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: 'Shipping Cost',
-              },
-              unit_amount: 500, // in cents
-            },
-            quantity: 1,
-          },
+          }
         ],
-        success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${req.headers.origin}?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/`,
       }
       const checkoutSession =
         await stripe.checkout.sessions.create(params)
 
-      res.status(200).json(checkoutSession)
-      // const shipment = await client.Shipment.create({
-      //   from_address: {
-      //     street1: '417 MONTGOMERY ST',
-      //     street2: 'FLOOR 5',
-      //     city: 'SAN FRANCISCO',
-      //     state: 'CA',
-      //     zip: '94104',
-      //     country: 'US',
-      //     company: 'EasyPost',
-      //     phone: '415-123-4567',
-      //   },
-      //   to_address: {
-      //     name: 'Dr. Steve Brule',
-      //     street1: '179 N Harbor Dr',
-      //     city: 'Redondo Beach',
-      //     state: 'CA',
-      //     zip: '90277',
-      //     country: 'US',
-      //     phone: '4155559999',
-      //   },
-      //   parcel: {
-      //     length: 8,
-      //     width: 5,
-      //     height: 5,
-      //     weight: 5,
-      //   },
-      // });
-      
-      // // const boughtShipment = await client.Shipment.buy(shipment.id, shipment.lowestRate());
-      // console.log(shipment.lowestRate())
-      // res.status(200).json(shipment.lowestRate());
+      res.status(200).json(checkoutSession);
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'Internal server error'

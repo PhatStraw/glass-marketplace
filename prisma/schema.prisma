@@ -19,8 +19,9 @@ model Item {
   published Boolean   @default(false)
   likes     Int       @default(0)
   artist    String
+  owner     User      @relation(name: "owneritems", fields: [userId], references: [id], map: "item_owner")
+  favbyuser User[]    @relation(name: "favorites")
   userId    Int
-  owner     User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
@@ -41,7 +42,8 @@ model User {
   password  String
   name      String   @unique
   role      Role     @default(USER)
-  items     Item[]   @relation()
+  items     Item[]   @relation(name: "owneritems")
+  favorites Item[]   @relation(name: "favorites")
 }
 
 enum Role {

@@ -175,6 +175,7 @@ export default function Feed() {
       window.removeEventListener("scroll", onScroll, { passive: true });
     };
   }, [onScroll]);
+
   return (
     <Box pt={2}>
       <ItemFilter itemData={itemData} le={itemData.length}/>
