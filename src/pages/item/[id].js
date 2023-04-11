@@ -13,6 +13,7 @@ import ItemDetails from "../../components/itemDetail";
 import ItemSimilarListings from "../../components/itemSimilarListing";
 import getStripe from '../../utils/get-stripe'
 import { fetchPostJSON } from '../../utils/api-helpers'
+import BottomNav from "components/components/BottomNav";
 
 const itemData = [
   {
@@ -206,45 +207,7 @@ const ItemPage = () => {
       <ItemDescription />
       <ItemDetails handleClick={handleClick} open={open} />
       <ItemSimilarListings itemData={itemData} />
-      <Paper
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "10%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-        }}
-        elevation={3}
-      >
-        <Button
-          value="Recents"
-          sx={{
-            padding: "15px",
-            width: "45%",
-            fontWeight: "bold",
-            background: "black",
-            color: "white!important",
-          }}
-          onClick={handleSubmit}
-        >
-          PURCHASE
-        </Button>
-        <Button
-          value="Recents"
-          sx={{
-            padding: "15px",
-            width: "45%",
-            fontWeight: "bold",
-            color: "black",
-            border: "solid black",
-          }}
-        >
-          OFFER
-        </Button>
-      </Paper>
+      <BottomNav one="PURCHASE" two="OFFER" handleSubmit={handleSubmit}/>
     </Box>
   );
 };

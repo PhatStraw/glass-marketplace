@@ -1,11 +1,24 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Box, Divider, MenuItem, InputAdornment, OutlinedInput, InputLabel } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Divider,
+  MenuItem,
+  InputAdornment,
+  OutlinedInput,
+  InputLabel,
+} from "@mui/material";
+import BottomNav from "components/components/BottomNav";
+import CloudinaryUploadWidget from "components/components/CloudinaryUploadWidget";
 
 const Sell = () => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [artist, setArtist] = useState("");
+  const [images, setImages] = useState([]);
 
   const handleImageChange = (event) => {
     if (event.target.files[0]) {
@@ -20,20 +33,20 @@ const Sell = () => {
 
   const currencies = [
     {
-      value: 'USD',
-      label: '$',
+      value: "USD",
+      label: "$",
     },
     {
-      value: 'EUR',
-      label: '€',
+      value: "EUR",
+      label: "€",
     },
     {
-      value: 'BTC',
-      label: '฿',
+      value: "BTC",
+      label: "฿",
     },
     {
-      value: 'JPY',
-      label: '¥',
+      value: "JPY",
+      label: "¥",
     },
   ];
 
@@ -66,30 +79,34 @@ const Sell = () => {
         </Typography>
         {/* <Divider/> */}
         <TextField
-          label="Name"
-          value={name}
+          select
+          label="Category"
           onChange={(event) => setName(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
-        />
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
-          label="Name"
-          value={name}
+          select
+          label="Designer"
           onChange={(event) => setName(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
-        />
-        <TextField
-          label="Name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          fullWidth
-          size="small"
-          margin="normal"
-        />
-         <Typography
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <Typography
           variant="div"
           sx={{
             flexGrow: 1,
@@ -97,17 +114,18 @@ const Sell = () => {
             letterSpacing: ".1rem",
           }}
         >
-          Please select an artsit from the drop down. Please email us if the artist youre trying to add doesnt exist.
+          Please select an artsit from the drop down. Please email us if the
+          artist youre trying to add doesnt exist.
         </Typography>
         <TextField
-           select
-           label="Select"
+          select
+          label="Size"
           onChange={(event) => setName(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
         >
-                      {currencies.map((option) => (
+          {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -115,7 +133,7 @@ const Sell = () => {
         </TextField>
       </Box>
       <Box pt={5}>
-      <Typography
+        <Typography
           variant="div"
           noWrap
           sx={{
@@ -128,7 +146,7 @@ const Sell = () => {
           ITEM NAME
         </Typography>
         <TextField
-          label="Name"
+          label="Item name"
           value={name}
           onChange={(event) => setName(event.target.value)}
           fullWidth
@@ -137,7 +155,7 @@ const Sell = () => {
         />
       </Box>
       <Box pt={5}>
-      <Typography
+        <Typography
           variant="div"
           noWrap
           sx={{
@@ -159,7 +177,7 @@ const Sell = () => {
         />
       </Box>
       <Box pt={5}>
-      <Typography
+        <Typography
           variant="div"
           noWrap
           sx={{
@@ -172,14 +190,14 @@ const Sell = () => {
           CONDITION
         </Typography>
         <TextField
-           select
-           label="Condition"
+          select
+          label="Condition"
           onChange={(event) => setName(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
         >
-                      {currencies.map((option) => (
+          {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -187,7 +205,7 @@ const Sell = () => {
         </TextField>
       </Box>
       <Box pt={5}>
-      <Typography
+        <Typography
           variant="div"
           noWrap
           sx={{
@@ -200,15 +218,15 @@ const Sell = () => {
           DESCRIPTION
         </Typography>
         <TextField
-             multiline
-             rows={6}
-           label="Add details about the piece"
+          multiline
+          rows={6}
+          label="Add details about the piece"
           onChange={(event) => setName(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
         >
-                      {currencies.map((option) => (
+          {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -216,7 +234,7 @@ const Sell = () => {
         </TextField>
       </Box>
       <Box pt={5}>
-      <Typography
+        <Typography
           variant="div"
           noWrap
           sx={{
@@ -237,20 +255,22 @@ const Sell = () => {
           margin="normal"
         />
       </Box>
-      {/* <input
-        accept="image/*"
-        id="contained-button-file"
-        type="file"
-        onChange={handleImageChange}
-      />
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" component="span">
-          Upload Image
-        </Button>
-      </label>
-      <Button type="submit" variant="contained" color="primary">
-        Submit
-      </Button> */}
+      <Box pt={5} pb={15} display="flex" flexDirection="column">
+        <Typography
+          variant="div"
+          noWrap
+          sx={{
+            flexGrow: 1,
+            fontSize: "20px",
+            fontWeight: 700,
+            letterSpacing: ".1rem",
+          }}
+        >
+          PHOTOS
+        </Typography>
+        <CloudinaryUploadWidget images={images} setImages={setImages} />
+      </Box>
+      <BottomNav one="PUBLISH" />
     </form>
   );
 };

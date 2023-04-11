@@ -1,29 +1,34 @@
-'use client'
+"use client";
 import React, { Component } from "react";
-import { CldUploadWidget } from 'next-cloudinary';
-class CloudinaryUploadWidget extends Component {
-  componentDidMount() {
-  }
-
-  render() {
-    return (
-        <CldUploadWidget
-        cloudName="dcmncwymq"
-        signatureEndpoint="/api/sign-cloudinary-params">
-        {({ open }) => {
-          function handleOnClick(e) {
-            e.preventDefault();
-            open();
-          }
-          return (
-            <button onClick={handleOnClick}>
-              Upload an Image
-            </button>
-          );
-        }}
-      </CldUploadWidget>
-    );
-  }
+import { CldUploadWidget } from "next-cloudinary";
+import { Button } from "@mui/material";
+export default function CloudinaryUploadWidget(props) {
+  return (
+    <CldUploadWidget
+      cloudName="dcmncwymq"
+      uploadPreset="grails"
+      onUpload={(response) => props.setImages([...props.images,response.info.secure_url])}
+      onError={(error) => console.error(error)}
+    >
+      {({ open }) => {
+        function handleOnClick(e) {
+          e.preventDefault();
+          open();
+        }
+        return (
+          <Button
+            sx={{
+              padding: "15px",
+              fontWeight: "bold",
+              background: "black",
+              color: "white!important",
+            }}
+            onClick={handleOnClick}
+          >
+            Upload Images
+          </Button>
+        );
+      }}
+    </CldUploadWidget>
+  );
 }
-
-export default CloudinaryUploadWidget;

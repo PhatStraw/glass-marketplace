@@ -21,7 +21,6 @@ import {
   ListItemButton,
   Divider,
 } from "@mui/material";
-import { ListItemIcon } from "@mui/material";
 import { useUser } from "@clerk/nextjs";
 
 function ResponsiveAppBar() {

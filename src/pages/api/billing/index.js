@@ -1,10 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
-
-import { formatAmountForStripe } from "../../../utils/stripe-helpers";
-const EasyPostClient = require("@easypost/api");
-
-const client = new EasyPostClient(process.env.EASYPOST_API_KEY);
-
 const stripe = require("stripe")(
   "sk_test_51MsDgLAlSphatrSrZF0FCPNsjzXoee2NBiIdTsbtCj99etvWARd4ydiFBmM1gbRHniOYPaApw4n3NYzWqYXrAevI00eMiD4jaO"
 );
