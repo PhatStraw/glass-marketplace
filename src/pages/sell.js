@@ -14,21 +14,39 @@ import BottomNav from "components/components/BottomNav";
 import CloudinaryUploadWidget from "components/components/CloudinaryUploadWidget";
 
 const Sell = () => {
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [artist, setArtist] = useState("");
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [designer, setDesigner] = useState("");
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
+  const [condition, setCondition] = useState("");
+  const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
 
-  const handleImageChange = (event) => {
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
-    }
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Do something with the uploaded image, name, description, and artist
+
+    const response = await fetch("/api/upload", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price,
+        name,
+        description,
+        category,
+        designer,
+        size,
+        color,
+        condition,
+        images,
+      }), // body data type must match "Content-Type" header
+    });
+    const data = await response.json();
+    console.log(data);
+    window.location.href = "http://loacalhost:3000";
   };
 
   const currencies = [
@@ -77,11 +95,11 @@ const Sell = () => {
         >
           DETAILS
         </Typography>
-        {/* <Divider/> */}
         <TextField
           select
           label="Category"
-          onChange={(event) => setName(event.target.value)}
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -95,7 +113,8 @@ const Sell = () => {
         <TextField
           select
           label="Designer"
-          onChange={(event) => setName(event.target.value)}
+          value={designer}
+          onChange={(event) => setDesigner(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -120,7 +139,8 @@ const Sell = () => {
         <TextField
           select
           label="Size"
-          onChange={(event) => setName(event.target.value)}
+          value={size}
+          onChange={(event) => setSize(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -169,8 +189,8 @@ const Sell = () => {
         </Typography>
         <TextField
           label="Designer color name ex. Frosted Lemonade"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
+          value={color}
+          onChange={(event) => setColor(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -192,7 +212,8 @@ const Sell = () => {
         <TextField
           select
           label="Condition"
-          onChange={(event) => setName(event.target.value)}
+          value={condition}
+          onChange={(event) => setCondition(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -221,7 +242,8 @@ const Sell = () => {
           multiline
           rows={6}
           label="Add details about the piece"
-          onChange={(event) => setName(event.target.value)}
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -247,9 +269,9 @@ const Sell = () => {
           PRICE
         </Typography>
         <OutlinedInput
-          value={name}
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          onChange={(event) => setName(event.target.value)}
+          value={price}
+          onChange={(event) => setPrice(event.target.value)}
           fullWidth
           size="small"
           margin="normal"
@@ -270,7 +292,7 @@ const Sell = () => {
         </Typography>
         <CloudinaryUploadWidget images={images} setImages={setImages} />
       </Box>
-      <BottomNav one="PUBLISH" />
+      <BottomNav one="PUBLISH" handleSubmit={handleSubmit} />
     </form>
   );
 };

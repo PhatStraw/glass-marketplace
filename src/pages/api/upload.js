@@ -19,83 +19,38 @@ const handler = nc({
   // uploading two files
   .use(multer().any())
   .post(async (req, res) => {
-    // get user's token
-    // const token = await getToken({ req });
-
-    // if no token
-    // if (!token) {
-    //   return res.status(401).json({ error: 'You are not signed in', data: null });
-    // }
-    // get parsed image and video from multer
-    const image = req.files.filter((file) => file.fieldname === "image")[0];
-    // create a neew Data URI parser
-    const parser = new DatauriParser();
-    try {
-      // create image
-      console.log('hi 1')
-
-      const createImage = async (img) => {
-        const base64Image = parser.format(
-          path.extname(img.originalname).toString(),
-          img.buffer
-        );
-        const uploadedImageResponse = await cloudinary.uploader.upload(
-          base64Image.content,
-          "flashcards",
-          { resource_type: "image" }
-        );
-        return uploadedImageResponse;
-      };
-      console.log('hi 2')
-      // saving information
-      const createdImage = await createImage(image);
-      const imageUrl = createdImage.url;
-      const image_id = createdImage.public_id;
-      const image_signature = createdImage.signature;
-      const body = req.body;
-      console.log('created image', createImage)
-      // try {
-      //   const newEntry = await prisma.item.create({
-      //     data: {
-      //       title: 'hi',
-      //       artist: 'hi',
-      //       content: hi,
-      //       images: {
-      //         create: [
-      //             {
-      //           url: imageUrl,
-      //         }
-      //       ],
-      //       },
-      //       owner: {
-      //           connectOrCreate: {
-      //             where: {
-      //               email: 'kevin@gmail.com',
-      //             },
-      //             create: {
-      //               email: 'viola@prisma.io',
-      //               name: 'Viola',
-      //               password: 'hola'
-      //             },
-      //           },
-      //       }
-      //     },
-      //   });
-      //   res.json({ error: null, data: { newEntry } });
-      // } catch (error) {
-      //   res.status(500).json({ error: error.message, data: null });
-      // }
-      res.send({ data: { createImage } });
-    } catch (error) {
-      res.status(500).json({ error, data: null });
-    }
+    console.log(req.body)
+      try {
+        const newEntry = await prisma.item.create({
+          data: {
+            title: req.body.name,
+            artist: req.body.designer,
+            content: req.body.description,
+            images: {
+              create: [
+                  {
+                url: req.body.images[0],
+              }
+            ],
+            },
+            owner: {
+                connectOrCreate: {
+                  where: {
+                    email: 'kevin@gmail.com',
+                  },
+                  create: {
+                    email: 'viola@prisma.io',
+                    name: 'Viola',
+                    password: 'hola'
+                  },
+                },
+            }
+          },
+        });
+        res.json({ error: null, data: { newEntry } });
+      } catch (error) {
+        res.status(500).json({ error: error.message, data: null });
+      }
   });
-
-// disable body parser
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 export default handler;

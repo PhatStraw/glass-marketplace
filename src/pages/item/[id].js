@@ -174,7 +174,6 @@ const ItemPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setLoading(true)
     // Create a Checkout Session.
     const response = await fetchPostJSON('/api/checkout_sessions', {
       amount: 345,
@@ -198,9 +197,7 @@ const ItemPage = () => {
     // error, display the localized error message to your customer
     // using `error.message`.
     console.warn(error.message)
-    setLoading(false)
   }
-  console.log("id", id);
   return (
     <Box sx={{ padding: "4rem 1rem 0 1rem", minHeight: "100vh" }}>
       <ItemSwipe />

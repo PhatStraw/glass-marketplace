@@ -157,7 +157,9 @@ const itemData = [
   },
 ];
 
-export default function Feed() {
+export default function Feed({items}) {
+  console.log("ITEMS", JSON.parse(items))
+  const itemsParsed = JSON.parse(items)
   const onScroll = useCallback((event) => {
     var navbar = document.getElementById("navbar");
     if (window.pageYOffset >= 1380) {
@@ -178,16 +180,16 @@ export default function Feed() {
 
   return (
     <Box pt={2}>
-      <ItemFilter itemData={itemData} le={itemData.length}/>
+      <ItemFilter itemData={itemsParsed} le={itemsParsed.length}/>
       <Divider />
       <Box sx={{ padding: "1rem 1rem 1.5rem 1rem" }}>
         <ImageList cols={2} gap={10} rowHeight={365}>
-          {itemData.map((item) => (
+          {itemsParsed.map((item) => (
               <Link style={{ textDecoration: 'none', color: 'black' }} key={item.id} href={`/item/${item.id}`}>
-                <ImageListItem key={item.img}>
+                <ImageListItem key={item.images[0]["url"]}>
                 <img
-                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${item.images[0]["url"]}?w=248&fit=crop&auto=format`}
+                    srcSet={`${item.images[0]["url"]}?w=248&fit=crop&auto=format&dpr=2 2x`}
                     alt={item.artist}
                     loading="lazy"
                 />
@@ -226,12 +228,7 @@ export default function Feed() {
                         }}
                     >
                         {
-                        [
-                            "Glowing Dragon",
-                            "The Rasta Swirl",
-                            "The Crystal Skull",
-                            "The Rainbow Sherbet",
-                        ][Math.floor(Math.random() * 4)]
+                        item.title
                         }
                     </Box>
                     <Typography sx={{ fontWeight: 'bold', pb: 2, fontSize: "13px" }}>
