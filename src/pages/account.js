@@ -36,7 +36,6 @@ const handleSubmit = async (e) => {
 export default function Account() {
     const {isSignedin, user} = useUser()
     const { signOut } = useClerk();
-    console.log('account',user)
   return (
     <Box pt={10} container spacing={3}>
       <Box

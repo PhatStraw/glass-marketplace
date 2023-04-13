@@ -25,10 +25,8 @@ export default async function handler(req, res) {
 
 async function createUser(req, res) {
     const body = req.body
-    console.log('req', req.body)
   try {
     const res = await cloudinary.uploader.upload(req.body, {public_id: "olympic_boo"})
-    console.log('res',res.url);
       // https://res.cloudinary.com/<cloud_name>/image/upload/h_150,w_100/olympic_flag
     // const newEntry = await prisma.user.create({
     //   data: {

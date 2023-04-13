@@ -3,22 +3,33 @@ import HomeCard from "../components/CuratedCard";
 import Feed from "../components/feed";
 import SalesCard from "../components/SalesCard";
 import { PrismaClient } from '@prisma/client';
+import { useEffect, useState } from "react";
 
-export default function Shop({items}){
+export default function Shop({items, staticFilter}){
+    const [filter, setFilter] = useState()
+    const [pieces, setPieces] = useState(items)
+    async function onSubmit () {
+        const data = await fetch("/api/filter", {
+            method: "POST",
+            body: JSON.stringify(filter)
+        })
+        const newItems = await data.json()
+        setPieces(newItems)
+    }
     return(
         <Box pt={0}>
             <Typography sx={{fontSize: '20px', paddingTop: 10, paddingLeft: 3, pb: 2, fontWeight: 'bold'}}  gutterBottom>
                 Glass For Sale
             </Typography>
             <Divider />
-            <HomeCard />
+            <HomeCard onSubmit={onSubmit} setFilter={setFilter} filter={filter}/>
             <Typography m={1} sx={{fontSize: '18px', p: 1, fontWeight: 'bold'}} gutterBottom>
                 Sales & Featured Collections
             </Typography>
             <SalesCard />
             <SalesCard />
             <SalesCard />
-            <Feed items={items} />
+            <Feed items={pieces} staticFilter={staticFilter} onSubmit={onSubmit} setFilter={setFilter} filter={filter}/>
         </Box>
     )
 }
@@ -33,11 +44,16 @@ export async function getStaticProps() {
             images: true,
           },
     })
-    const items = JSON.stringify(data);
-    console.log("POST",items)
+    const items = JSON.parse(JSON.stringify(data));
+
+    const data2 = await prisma.item.findMany({
+      distinct: ['artist'],
+    });
+    const staticFilter = JSON.parse(JSON.stringify(data2));
     return {
       props: {
-        items,
+        staticFilter,
+        items
       },
-    }
+    };
   }

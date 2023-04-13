@@ -19,7 +19,6 @@ const handler = nc({
   // uploading two files
   .use(multer().any())
   .post(async (req, res) => {
-    console.log(req.body)
       try {
         const newEntry = await prisma.item.create({
           data: {

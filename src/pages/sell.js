@@ -45,7 +45,6 @@ const Sell = () => {
       }), // body data type must match "Content-Type" header
     });
     const data = await response.json();
-    console.log(data);
     window.location.href = "http://loacalhost:3000";
   };
 

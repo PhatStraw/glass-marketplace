@@ -7,14 +7,7 @@ import SalesCard from '../components/SalesCard';
 import { useUser } from '@clerk/nextjs';
 
 export default function App() {
-  // useEffect(()=>{
-  //   const fetchItems = async () => {
-    
-  //   }
-  //   fetchItems()
-  // })
-    // Use the useUser hook to get the Clerk.user object
-    const { isLoaded, isSignedIn, user } = useUser()
+  const { isLoaded, isSignedIn, user } = useUser()
   console.log('USER', user)
 
   return (
