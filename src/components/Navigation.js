@@ -72,7 +72,7 @@ function ResponsiveAppBar() {
         ) : (
           <></>
         )}
-        {["designers", "sell", "shop", authVal].map((text, index) => (
+        {["sell", "shop","Purchases","Your Listings", authVal].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ fontWeight: "700" }}>
             <Link
               href={`/${text}`}

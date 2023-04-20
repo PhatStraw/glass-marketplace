@@ -8,21 +8,38 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Purchase {
+  id       String    @id @default(uuid())
+  quantity Int
+  item     Item      @relation(fields: [itemId], references: [id])
+  itemId   String
+  user     User      @relation(fields: [userId], references: [id])
+  userId   String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([itemId])
+}
+
 model Item {
   id        String     @id @default(uuid())
   createdAt DateTime?  @default(now())
-  updatedAt DateTime?  @updatedAt
-  title     String
-  content   String
-  type      GlassType @default(RECYCLER)
-  images    Image[]
-  published Boolean   @default(false)
-  likes     Int       @default(0)
-  artist    String
-  color     String
-  owner     User      @relation(name: "owneritems", fields: [userId], references: [id], map: "item_owner")
-  favbyuser User[]    @relation(name: "favorites")
-  userId    String
+  updatedAt       DateTime? @updatedAt
+  title           String
+  content         String
+  type            GlassType @default(RECYCLER)
+  images          Image[]
+  published       Boolean   @default(false)
+  likes           Int       @default(0)
+  artist          String
+  color           String
+  condition       ConditionType
+  price           Int       
+  shipping        Int
+  owner           User      @relation(name: "owneritems", fields: [userId], references: [id], map: "item_owner")
+  favbyuser       User[]    @relation(name: "favorites")
+  purchases       Purchase[]
+  userId          String
 
   @@index([userId])
 }
@@ -37,14 +54,15 @@ model Image {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  email     String   @unique
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+  email     String      @unique
   password  String
   name      String
-  role      Role     @default(USER)
-  items     Item[]   @relation(name: "owneritems")
-  favorites Item[]   @relation(name: "favorites")
+  role      Role        @default(USER)
+  items     Item[]      @relation(name: "owneritems")
+  favorites Item[]      @relation(name: "favorites")
+  purchases Purchase[]
 }
 
 enum Role {
@@ -52,6 +70,10 @@ enum Role {
   ADMIN
 }
 
+enum ConditionType {
+  NEW
+  USED
+}
 enum GlassType {
   RECYCLER
   INCLINE

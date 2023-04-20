@@ -18,7 +18,6 @@ import WaterIcon from "@mui/icons-material/Water";
 import PaletteIcon from "@mui/icons-material/Palette";
 
 export default function ItemFilter(props) {
-  console.log(props.staticFilter)
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -26,30 +25,33 @@ export default function ItemFilter(props) {
     right: false,
   });
   const [checked, setChecked] = React.useState(false);
-  const [open, setOpen] = React.useState(true);
+  const [checkboxes, setCheckboxes] = React.useState([]);
+  const [open, setOpen] = React.useState([]);
   const [filters, setFilters] = React.useState();
-  const doThis = async (newFilter) => {
-    setFilters(...filters, newFilter);
+  
+  const handleChange = (event, index, value) => {
+    const newCheckboxes = [...checkboxes];
+    newCheckboxes[index] = event.target.checked;
+    setCheckboxes(newCheckboxes);
+    if(newCheckboxes[index]){
+      console.log(props.filter, value)
+      props.setFilter({ ...props.filter, ...value });
+    }else{
+      const remove = delete props.filter.value
+      props.setFilter({...remove})
+    }
   };
-  const uniqueArtists = Array.from(
-    new Set(props.itemData.map((item) => item.artist))
-  );
-  const handleToggle = (value) => {
-    props.setFilter({...props.filters, ...value })
-    // const currentIndex = checked.indexOf(value);
-    // const newChecked = [...checked];
 
-    // if (currentIndex === -1) {
-    //   newChecked.push(value);
-    // } else {
-    //   newChecked.splice(currentIndex, 1);
-    // }
-    console.log("FILTERSSSS",props.filter);
+  const [expandedItem, setExpandedItem] = React.useState(null);
 
-    setChecked(!checked);
+  const handleExpand = (item) => {
+    setExpandedItem(item === expandedItem ? null : item);
   };
-  const handleClick = (e) => {
-    setOpen(!open);
+
+  const handleClick = (event,index) => {
+    const newToggleFilter = [...open];
+    newToggleFilter[index] = event.target.checked;
+    setOpen(newToggleFilter);
   };
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -89,21 +91,25 @@ export default function ItemFilter(props) {
         sx={{ zIndex: 10000 }}
       >
         <List sx={{ zIndex: 10000, width: "80vw" }}>
-          <ListItemButton onClick={handleClick}>
+          <ListItemButton onClick={(e)=> handleExpand(1)}>
             <ListItemIcon>
               <FireplaceIcon />
             </ListItemIcon>
             <ListItemText primary="Artist" />
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {expandedItem === 1 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          {props.staticFilter.map((i) => (
-            <Collapse in={open} key={i.artist} timeout="auto" unmountOnExit>
+          {props.staticFilter.map((i, index) => (
+            <Collapse in={expandedItem === 1} key={index} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} onClick={() => handleToggle({artist: i.artist})}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                >
                   <ListItemIcon>
                     <Checkbox
                       edge="start"
-                      checked={checked}
+                      key={index}
+                      checked={checkboxes[index] || false}
+                      onChange={(event) => handleChange(event, index, { artist: i.artist })}
                       tabIndex={-1}
                       disableRipple
                     />
@@ -115,16 +121,16 @@ export default function ItemFilter(props) {
           ))}
         </List>
         <List sx={{ zIndex: 10000, width: "80vw" }}>
-          <ListItemButton onClick={handleClick}>
+          <ListItemButton onClick={(e)=> handleExpand(2)}>
             <ListItemIcon>
               <WaterIcon />
             </ListItemIcon>
             <ListItemText primary="Function" />
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {expandedItem === 2 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={expandedItem === 2} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+              <ListItemButton sx={{ pl: 4 }} >
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -139,16 +145,16 @@ export default function ItemFilter(props) {
           </Collapse>
         </List>
         <List sx={{ zIndex: 10000, width: "80vw" }}>
-          <ListItemButton onClick={handleClick}>
+          <ListItemButton onClick={(e)=> handleExpand(3)}>
             <ListItemIcon>
               <PaletteIcon />
             </ListItemIcon>
             <ListItemText primary="Color" />
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {expandedItem === 3 ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={expandedItem === 3} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+              <ListItemButton sx={{ pl: 4 }} >
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -159,7 +165,7 @@ export default function ItemFilter(props) {
                 </ListItemIcon>
                 <ListItemText primary="Red" />
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+              <ListItemButton sx={{ pl: 4 }} >
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -170,7 +176,7 @@ export default function ItemFilter(props) {
                 </ListItemIcon>
                 <ListItemText primary="Blue" />
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }} onClick={handleToggle}>
+              <ListItemButton sx={{ pl: 4 }} >
                 <ListItemIcon>
                   <Checkbox
                     edge="start"

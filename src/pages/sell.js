@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import {
   TextField,
-  Button,
   Typography,
   Box,
-  Divider,
   MenuItem,
   InputAdornment,
-  OutlinedInput,
-  InputLabel,
+  OutlinedInput
 } from "@mui/material";
+import { CldImage } from 'next-cloudinary';
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from 'next/router'
 import BottomNav from "components/components/BottomNav";
 import CloudinaryUploadWidget from "components/components/CloudinaryUploadWidget";
 
@@ -21,14 +21,16 @@ const Sell = () => {
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [condition, setCondition] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState();
+  const [shipping, setShipping] = useState();
   const [images, setImages] = useState([]);
-
+  const { user } = useUser();
+  const router = useRouter();
+  console.log(images)
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const response = await fetch("/api/upload", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -38,34 +40,75 @@ const Sell = () => {
         description,
         category,
         designer,
+        shipping,
         size,
         color,
         condition,
         images,
-      }), // body data type must match "Content-Type" header
+        email: user.primaryEmailAddress.emailAddress
+      }),
     });
     const data = await response.json();
-    window.location.href = "http://loacalhost:3000";
+    console.log("DATA----",data)
+    setImages([])
+    if(data.data.success){
+      router.push("/")
+    }else{
+      alert("Something went wrong try again.")
+      console.log(data)
+    }
   };
 
-  const currencies = [
+  const type = [
     {
-      value: "USD",
-      label: "$",
+      value: "TORUS",
+      label: "TORUS",
     },
     {
-      value: "EUR",
-      label: "€",
+      value: "INCLINE",
+      label: "INCLINE",
     },
     {
-      value: "BTC",
-      label: "฿",
+      value: "RECYCLER",
+      label: "RECYLCER",
     },
     {
-      value: "JPY",
-      label: "¥",
+      value: "NAIL",
+      label: "NAIL",
     },
   ];
+
+  const designers = [
+    {
+      value: "Darby Holms Glass",
+      label: "Darby Holms Glass",
+    },
+    {
+      value: "Elbo Glass",
+      label: "Elbo Glass",
+    },
+    {
+      value: "Earl Jr Glass",
+      label: "Earl Jr Glass",
+    },
+  ];
+
+  const sizes = [
+    "1in",
+    "2in",
+    "3in",
+    "4in",
+    "5in",
+    "6in",
+    "7in",
+    "8in",
+    "9in"
+  ]
+
+  const conditions = [
+    "NEW",
+    "USED"
+  ]
 
   return (
     <form onSubmit={handleSubmit} style={{ padding: "5rem 2rem 0rem 2rem" }}>
@@ -103,7 +146,7 @@ const Sell = () => {
           size="small"
           margin="normal"
         >
-          {currencies.map((option) => (
+          {type.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -118,7 +161,7 @@ const Sell = () => {
           size="small"
           margin="normal"
         >
-          {currencies.map((option) => (
+          {designers.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -144,9 +187,9 @@ const Sell = () => {
           size="small"
           margin="normal"
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {sizes.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
             </MenuItem>
           ))}
         </TextField>
@@ -217,9 +260,9 @@ const Sell = () => {
           size="small"
           margin="normal"
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {conditions.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
             </MenuItem>
           ))}
         </TextField>
@@ -247,7 +290,7 @@ const Sell = () => {
           size="small"
           margin="normal"
         >
-          {currencies.map((option) => (
+          {type.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -276,6 +319,28 @@ const Sell = () => {
           margin="normal"
         />
       </Box>
+      <Box pt={5}>
+        <Typography
+          variant="div"
+          noWrap
+          sx={{
+            flexGrow: 1,
+            fontSize: "20px",
+            fontWeight: 700,
+            letterSpacing: ".1rem",
+          }}
+        >
+          SHIPPING
+        </Typography>
+        <OutlinedInput
+          startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          value={shipping}
+          onChange={(event) => setShipping(event.target.value)}
+          fullWidth
+          size="small"
+          margin="normal"
+        />
+      </Box>
       <Box pt={5} pb={15} display="flex" flexDirection="column">
         <Typography
           variant="div"
@@ -289,6 +354,23 @@ const Sell = () => {
         >
           PHOTOS
         </Typography>
+        <Box display="flex" width="190px">
+
+        {images[0] ? (
+          images.map((i) => (
+            <img
+              width="100"
+              height="100"
+              style={{
+                padding: "5px"
+              }}
+              src={i}
+              key={i}
+              alt={i}
+              />
+            ))
+        ) : <></>}
+        </Box>
         <CloudinaryUploadWidget images={images} setImages={setImages} />
       </Box>
       <BottomNav one="PUBLISH" handleSubmit={handleSubmit} />

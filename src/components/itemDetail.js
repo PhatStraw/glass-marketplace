@@ -38,13 +38,19 @@ export default function ItemDetails(props){
         </ListItemButton>
         <Collapse in={props.open} timeout="auto" unmountOnExit>
           <Box p="0 1rem" mt={1}>
-            Color: Blue
+            Color: {props.color}
           </Box>
           <Box p="0 1rem" mt={1}>
-            Condition: New
+            Condition: {props.condition}
+          </Box>
+          <Box p="0 1rem" mt={1} mb={1}>
+            Function: {props.type}
+          </Box>
+          <Box p="0 1rem" mt={1} mb={1}>
+            Description: {props.description}
           </Box>
         </Collapse>
-        <Divider />
+        <Divider pb={3}/>
       </List>
     )
 }

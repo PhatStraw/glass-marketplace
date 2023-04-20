@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
@@ -15,6 +15,19 @@ import {
 } from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 export default function ItemSimilarListings(props){
+  const [relatedItems, setRelatedItems] = useState()
+  useEffect(()=> {
+    const getSimilar = async () => {
+      const data = await fetch("/api/filter", {
+        method: "POST",
+        body: JSON.stringify({type: props.item.type})
+    })
+    const newItems = await data.json()
+    setRelatedItems(newItems)
+    console.log(newItems)
+    }
+    getSimilar()
+  }, [])
     return(
         <Box>
         <ListItemButton>
@@ -29,16 +42,16 @@ export default function ItemSimilarListings(props){
         </ListItemButton>
         <Box sx={{ padding: "1rem 1rem 1.5rem 1rem" }}>
           <ImageList cols={2} gap={10} rowHeight={365}>
-            {props.itemData.map((item) => (
+            {relatedItems ? (relatedItems.map((item) => (
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 key={item.id}
                 href={`/item/${item.id}`}
               >
-                <ImageListItem key={item.img}>
+                <ImageListItem key={item.id}>
                   <img
-                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    src={`${item.images[0].url}`}
+                    srcSet={`${item.images[0].url}`}
                     alt={item.artist}
                     loading="lazy"
                   />
@@ -97,7 +110,7 @@ export default function ItemSimilarListings(props){
                   </Box>
                 </ImageListItem>
               </Link>
-            ))}
+            ))) : <></>}
           </ImageList>
         </Box>
       </Box>

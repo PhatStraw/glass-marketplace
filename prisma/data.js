@@ -5,6 +5,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "RECYCLER",
     artist: "Elbo Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -37,6 +41,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "RECYCLER",
     artist: "Elbo Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -69,6 +77,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "RECYCLER",
     artist: "Elbo Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -101,6 +113,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "RECYCLER",
     artist: "Elbo Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -133,6 +149,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "RECYCLER",
     artist: "Elbo Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -165,6 +185,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "RECYCLER",
     artist: "Elbo Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -197,6 +221,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "INCLINE",
     artist: "Darby Holms Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -229,6 +257,10 @@ const items = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "INCLINE",
     artist: "Darby Holms Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -264,6 +296,10 @@ const items2 = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "INCLINE",
     artist: "Darby Holms Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -296,6 +332,10 @@ const items2 = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "INCLINE",
     artist: "Darby Holms Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -328,6 +368,10 @@ const items2 = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "INCLINE",
     artist: "Darby Holms Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {
@@ -360,6 +404,10 @@ const items2 = [
       "made at the 2021 hash for all retreat, this beautiful piece was constructed in rememberance to the more simple times.",
     type: "TORUS",
     artist: "Earl Jr Glass",
+    color: "Black",
+    price: 1000,
+    condition: "NEW",
+    shipping: 100,
     images: {
       create: [
         {

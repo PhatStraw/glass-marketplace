@@ -4,7 +4,12 @@ import Favorite from "@mui/icons-material/Favorite";
 import Checkbox from "@mui/material/Checkbox";
 import { Box, Typography } from "@mui/material";
 
-export default function ItemDescription() {
+export default function ItemDescription({item}) {
+  const [fav, setFav] = React.useState(false)
+  const handleFav = () => {
+    
+    setFav(!fav)
+  }
   return (
     <Box pt={1}>
       <Box
@@ -29,7 +34,7 @@ export default function ItemDescription() {
             }}
             gutterBottom
           >
-            Cookie
+            {item.artist}
           </Typography>
           <Box
             sx={{
@@ -38,16 +43,11 @@ export default function ItemDescription() {
             }}
           >
             {
-              [
-                "Glowing Dragon",
-                "The Rasta Swirl",
-                "The Crystal Skull",
-                "The Rainbow Sherbet",
-              ][Math.floor(Math.random() * 4)]
+             item.title
             }
           </Box>
           <Typography style={{ fontWeight: "300", marginTop: "1rem" }}>
-            Size: 4in
+            Size: {item.size ? item.size : '4in'}
           </Typography>
         </Box>
         <Box
@@ -64,9 +64,11 @@ export default function ItemDescription() {
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
             fontWeight="bold"
+            checked={fav}
+            onChange={(event) => handleFav()}
           />
           <Typography fontWeight="bold" fontSize={14}>
-            1
+            {item.likes}
           </Typography>
         </Box>
       </Box>
@@ -80,13 +82,13 @@ export default function ItemDescription() {
           variant="h5"
           sx={{ fontWeight: "bold", mt: 2, fontSize: "22px" }}
         >
-          ${Math.floor(Math.random() * 1000) + 1}
+          ${item.price}
         </Typography>
         <Typography
           variant="h5"
           sx={{ fontWeight: "300", mt: 1, pb: 2, fontSize: "12px" }}
         >
-          + $30 shipping - United States
+          + ${item.shipping} shipping - United States
         </Typography>
       </Box>
     </Box>

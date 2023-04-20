@@ -25,7 +25,7 @@ export default function CloudinaryUploadWidget(props) {
             }}
             onClick={handleOnClick}
           >
-            Upload Images
+            Upload an Image
           </Button>
         );
       }}

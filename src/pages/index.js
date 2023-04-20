@@ -8,12 +8,19 @@ import { useUser } from '@clerk/nextjs';
 
 export default function App() {
   const { isLoaded, isSignedIn, user } = useUser()
-  console.log('USER', user)
+  const [filter, setFilter] = useState()
+  async function onSubmit () {
+      const data = await fetch("/api/filter", {
+          method: "POST",
+          body: JSON.stringify(filter)
+      })
+      const newItems = await data.json()
+  }
 
   return (
     <Box>
       <HeroSection />
-      <HomeCard />
+      <HomeCard onSubmit={onSubmit} setFilter={setFilter} filter={filter} />
       <Box p={1}>
       <Typography m={1} sx={{fontSize: '18px', p: 1, fontWeight: 'bold'}} gutterBottom>
         Sales & Featured Collections

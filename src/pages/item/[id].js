@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -11,8 +11,8 @@ import ItemDescription from "../../components/itemDescriptions";
 import ItemSwipe from "../../components/itemSwipes";
 import ItemDetails from "../../components/itemDetail";
 import ItemSimilarListings from "../../components/itemSimilarListing";
-import getStripe from '../../utils/get-stripe'
-import { fetchPostJSON } from '../../utils/api-helpers'
+import getStripe from "../../utils/get-stripe";
+import { fetchPostJSON } from "../../utils/api-helpers";
 import BottomNav from "components/components/BottomNav";
 
 const itemData = [
@@ -165,48 +165,65 @@ const itemData = [
 const ItemPage = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [item, setItem] = React.useState();
   const [checked, setChecked] = React.useState(false);
-  const [loading, setLoading] = React.useState(false)
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(true);
+  const [isLoading, setLoading] = React.useState(false)
   const handleClick = () => {
     setOpen(!open);
   };
+  useEffect(() => {
+    getItem();
+  }, [router.query]);
+  const getItem = async () => {
+    setLoading(true)
+    const data = await fetch(`/api/item?id=${id}`);
+    const newItem = await data.json();
+    setItem(newItem);
+    setLoading(false)
+  };
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Create a Checkout Session.
-    const response = await fetchPostJSON('/api/checkout_sessions', {
+    const response = await fetchPostJSON("/api/checkout_sessions", {
       amount: 345,
-      name: 'Darby Glass'
-    })
+      name: item.title,
+    });
 
     if (response.statusCode === 500) {
-      console.error(response.message)
-      return
+      console.error(response.message);
+      return;
     }
 
     // Redirect to Checkout.
-    const stripe = await getStripe()
+    const stripe = await getStripe();
     const { error } = await stripe.redirectToCheckout({
       // Make the id field from the Checkout Session creation API response
       // available to this file, so you can provide it as parameter here
       // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
       sessionId: response.id,
-    })
+    });
     // If `redirectToCheckout` fails due to a browser or network
     // error, display the localized error message to your customer
     // using `error.message`.
-    console.warn(error.message)
-  }
+    console.warn(error.message);
+  };
   return (
-    <Box sx={{ padding: "4rem 1rem 0 1rem", minHeight: "100vh" }}>
-      <ItemSwipe />
-      <ItemDescription />
-      <ItemDetails handleClick={handleClick} open={open} />
-      <ItemSimilarListings itemData={itemData} />
-      <BottomNav one="PURCHASE" two="OFFER" handleSubmit={handleSubmit}/>
-    </Box>
-  );
+    <>
+      { isLoading || !item ? (
+        <Box pt={7}>Loading...</Box>
+      ): (
+      <Box sx={{ padding: "4rem 1rem 0 1rem", minHeight: "100vh" }}>
+        <ItemSwipe images={item.images} />
+        <ItemDescription item={item}/>
+        <ItemDetails handleClick={handleClick} open={open} type={item.type} color={item.color} condition={item.condition} description={item.content}/>
+        <ItemSimilarListings item={item}/>
+        <BottomNav one="PURCHASE" two="OFFER" handleSubmit={handleSubmit} />
+      </Box>
+      )}
+    </>
+    ) 
 };
 
 export default ItemPage;

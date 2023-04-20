@@ -20,34 +20,38 @@ const handler = nc({
   .use(multer().any())
   .post(async (req, res) => {
       try {
+        const imagesMap = req.body.images.map(i => ({url: i}))
+        console.log(req.body)
         const newEntry = await prisma.item.create({
           data: {
             title: req.body.name,
             artist: req.body.designer,
             content: req.body.description,
+            color: req.body.color,
+            condition: req.body.condition,
+            price: parseInt(req.body.price),
+            shipping: parseInt(req.body.shipping),
             images: {
-              create: [
-                  {
-                url: req.body.images[0],
-              }
-            ],
+              create: imagesMap
             },
             owner: {
                 connectOrCreate: {
                   where: {
-                    email: 'kevin@gmail.com',
+                    email: req.body.email,
                   },
                   create: {
-                    email: 'viola@prisma.io',
-                    name: 'Viola',
-                    password: 'hola'
+                    email: req.body.email,
+                    name: 'kota',
+                    password: 'holakota'
                   },
                 },
             }
           },
         });
-        res.json({ error: null, data: { newEntry } });
+        console.log(newEntry)
+        res.status(200).json({ error: null, data: { newEntry, success: true } });
       } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error.message, data: null });
       }
   });
