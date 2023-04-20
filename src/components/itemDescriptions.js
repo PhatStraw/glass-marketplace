@@ -1,15 +1,40 @@
 import React from "react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import { useUser } from "@clerk/nextjs";
 import Favorite from "@mui/icons-material/Favorite";
 import Checkbox from "@mui/material/Checkbox";
 import { Box, Typography } from "@mui/material";
 
-export default function ItemDescription({item}) {
-  const [fav, setFav] = React.useState(false)
+export default function ItemDescription({ item }) {
+  const { user } = useUser();
+  const [fav, setFav] = React.useState(
+    item.favbyuser.map((i) => {
+      if (i.email === user.primaryEmailAddress.emailAddress) {
+        return true;
+      }
+    })
+  );
+  const [total, setTotal] = React.useState(item.likes);
+  
   const handleFav = () => {
-    
-    setFav(!fav)
-  }
+    const changeFav = async () => {
+      const response = await fetch("/api/update-item", {
+        method: "POST",
+        body: JSON.stringify({
+          userEmail: user.primaryEmailAddress.emailAddress,
+          itemId: item.id,
+        }),
+      });
+      const data = await response.json();
+      if (data.like) {
+        setTotal(total + 1);
+      } else {
+        setTotal(total - 1);
+      }
+    };
+    changeFav();
+    setFav(!fav);
+  };
   return (
     <Box pt={1}>
       <Box
@@ -42,12 +67,10 @@ export default function ItemDescription({item}) {
               fontSize: "16px",
             }}
           >
-            {
-             item.title
-            }
+            {item.title}
           </Box>
           <Typography style={{ fontWeight: "300", marginTop: "1rem" }}>
-            Size: {item.size ? item.size : '4in'}
+            Size: {item.size ? item.size : "4in"}
           </Typography>
         </Box>
         <Box
@@ -68,7 +91,7 @@ export default function ItemDescription({item}) {
             onChange={(event) => handleFav()}
           />
           <Typography fontWeight="bold" fontSize={14}>
-            {item.likes}
+            {total}
           </Typography>
         </Box>
       </Box>

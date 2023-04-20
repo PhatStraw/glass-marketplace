@@ -17,7 +17,8 @@ async function getItem(req, res) {
         id: req.query.id,
       },
       include: {
-        images: true
+        images: true,
+        favbyuser: true
       }
     })
     

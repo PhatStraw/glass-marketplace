@@ -31,9 +31,8 @@ function ResponsiveAppBar() {
     right: false,
   });
 
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const authVal = isSignedIn ? "logout" : "sign-in";
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -72,7 +71,7 @@ function ResponsiveAppBar() {
         ) : (
           <></>
         )}
-        {["sell", "shop","Purchases","Your Listings", authVal].map((text, index) => (
+        {["sell", "shop","Purchases"].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ fontWeight: "700" }}>
             <Link
               href={`/${text}`}
@@ -89,6 +88,36 @@ function ResponsiveAppBar() {
             </Link>
           </ListItem>
         ))}
+          <ListItem disablePadding sx={{ fontWeight: "700" }}>
+          {isSignedIn ? (<Link
+              href={`/listings/${user.primaryEmailAddress.emailAddress}`}
+              style={{
+                textDecoration: "none",
+                padding: 0,
+                margin: 0,
+                color: "black",
+              }}
+            >
+              <ListItemButton sx={{ fontWeight: "700" }}>
+                <ListItemText primary={"Your Listings".toUpperCase()} />
+              </ListItemButton>
+            </Link>) : <></>}
+          </ListItem>
+          <ListItem disablePadding sx={{ fontWeight: "700" }}>
+          <Link
+              href={`/${authVal}`}
+              style={{
+                textDecoration: "none",
+                padding: 0,
+                margin: 0,
+                color: "black",
+              }}
+            >
+              <ListItemButton sx={{ fontWeight: "700" }}>
+                <ListItemText primary={authVal.toUpperCase()} />
+              </ListItemButton>
+            </Link>
+          </ListItem>
       </List>
       <Divider />
     </Box>
@@ -190,7 +219,7 @@ function ResponsiveAppBar() {
             }}
           >
             {isSignedIn ? (
-              <Link href="/favorites" sx={{ border: "none" }}>
+              <Link href={`/myfavs/${user.primaryEmailAddress.emailAddress}`} sx={{ border: "none" }}>
                 <Button
                   key="favorites"
                   sx={{

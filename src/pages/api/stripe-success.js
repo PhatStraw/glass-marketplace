@@ -41,14 +41,29 @@ async function handler(req, res) {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
-
+    console.log("TYPE___",event.type)
     // Handle the event
     switch (event.type) {
       case "checkout.session.completed":
         const checkoutSucceeded = event.data.object;
         // Then define and call a function to handle the event checkout.session.completed
         console.log("---CHECKOUT SUCCEEDED OBJECT---", checkoutSucceeded);
-
+        
+        // const newPurchase = await prisma.purchase.create({
+        //   data: {
+        //     quantity: <QUANTITY>,
+        //     item: {
+        //       connect: {
+        //         id: <ITEM_ID>
+        //       }
+        //     },
+        //     user: {
+        //       connect: {
+        //         id: <USER_ID>
+        //       }
+        //     }
+        //   }
+        // });
         // const shipment = await client.Shipment.create({
         //   from_address: {
         //     street1: "417 MONTGOMERY ST",
