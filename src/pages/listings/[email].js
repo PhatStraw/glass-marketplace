@@ -20,6 +20,7 @@ import {
               body: JSON.stringify({email})
             })
             const data = await response.json()
+            console.log(data)
             setListings(data)
         }
         getListings()
@@ -44,7 +45,7 @@ import {
           </Typography>
           <Divider />
           <ImageList cols={2} gap={10} sx={{padding: '1rem'}} rowHeight={365}>
-            {listings[0]?(listings.map((item) => (
+            {listings[0]?(listings.map((item) => item.images[0] ? (
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 key={item.id}
@@ -108,7 +109,7 @@ import {
                   </Box>
                 </ImageListItem>
               </Link>
-            ))): <>No Listings Found</>}
+            ): <></>)): <>No Listings Found</>}
           </ImageList>
         </Box>
       </Box>

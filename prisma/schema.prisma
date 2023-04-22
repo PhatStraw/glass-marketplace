@@ -54,15 +54,17 @@ model Image {
 }
 
 model User {
-  id        String      @id @default(uuid())
-  createdAt DateTime    @default(now())
-  email     String      @unique
-  password  String
-  name      String
-  role      Role        @default(USER)
-  items     Item[]      @relation(name: "owneritems")
-  favorites Item[]      @relation(name: "favorites")
-  purchases Purchase[]
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  email       String      @unique
+  password    String
+  name        String
+  role        Role        @default(USER)
+  items       Item[]      @relation(name: "owneritems")
+  favorites   Item[]      @relation(name: "favorites")
+  stripelink  String?
+  stripeid     String
+  purchases   Purchase[]
 }
 
 enum Role {

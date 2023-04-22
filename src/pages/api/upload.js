@@ -20,32 +20,28 @@ const handler = nc({
   .use(multer().any())
   .post(async (req, res) => {
       try {
-        const imagesMap = req.body.images.map(i => ({url: i}))
-        console.log(req.body)
+        const data = req.body
+        const user = await prisma.user.findUnique({ where: { email: data.email } });
+
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+    
+        const imagesMap = data.images.map(i => ({url: i}))
+        console.log("REQBODY____",data)
         const newEntry = await prisma.item.create({
           data: {
-            title: req.body.name,
-            artist: req.body.designer,
-            content: req.body.description,
-            color: req.body.color,
-            condition: req.body.condition,
-            price: parseInt(req.body.price),
-            shipping: parseInt(req.body.shipping),
+            title: data.name,
+            artist: data.designer,
+            content: data.description,
+            color: data.color,
+            condition: data.condition,
+            price: parseInt(data.price),
+            shipping: parseInt(data.shipping),
             images: {
               create: imagesMap
             },
-            owner: {
-                connectOrCreate: {
-                  where: {
-                    email: req.body.email,
-                  },
-                  create: {
-                    email: req.body.email,
-                    name: 'kota',
-                    password: 'holakota'
-                  },
-                },
-            }
+            userId: user.id
           },
         });
         console.log(newEntry)

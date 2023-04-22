@@ -16,7 +16,7 @@ export default async function handler(
   res
 ) {
   if (req.method === 'POST') {
-    const amount = req.body.amount
+    const { amount, accountId, shipping, name } = req.body
     try {
 
       // Create Checkout Sessions from body params.
@@ -27,21 +27,10 @@ export default async function handler(
           allowed_countries: ['US', 'CA'],
         },
         shipping_options: [
-          {
+         {
             shipping_rate_data: {
               type: 'fixed_amount',
-              fixed_amount: {amount: 0, currency: 'usd'},
-              display_name: 'Free shipping',
-              delivery_estimate: {
-                minimum: {unit: 'business_day', value: 5},
-                maximum: {unit: 'business_day', value: 7},
-              },
-            },
-          },
-          {
-            shipping_rate_data: {
-              type: 'fixed_amount',
-              fixed_amount: {amount: 1500, currency: 'usd'},
+              fixed_amount: {amount: shipping, currency: 'usd'},
               display_name: 'Next day air',
               delivery_estimate: {
                 minimum: {unit: 'business_day', value: 1},
@@ -55,13 +44,16 @@ export default async function handler(
             price_data: {
               currency: 'usd',
               product_data: {
-                name: req.body.name,
+                name: name,
               },
               unit_amount: formatAmountForStripe(amount, "USD"),
             },
             quantity: 1,
           }
         ],
+        payment_intent_data: {
+          transfer_data: {destination: accountId},
+        },
         success_url: `${req.headers.origin}?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/`,
       }

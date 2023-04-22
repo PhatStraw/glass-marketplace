@@ -31,6 +31,7 @@ const items = [
           email: "vio2la@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -67,6 +68,7 @@ const items = [
           email: "viola13@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -103,6 +105,7 @@ const items = [
           email: "viola1@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -139,6 +142,7 @@ const items = [
           email: "viola7@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -175,6 +179,7 @@ const items = [
           email: "viola9@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -211,6 +216,7 @@ const items = [
           email: "vio09la@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -247,6 +253,7 @@ const items = [
           email: "viol64a@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -283,6 +290,7 @@ const items = [
           email: "vio345la@prisma.io",
           name: "Viola",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -322,6 +330,7 @@ const items2 = [
           email: "vi1o@prisma.io",
           name: "Vio",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -358,6 +367,7 @@ const items2 = [
           email: "vio@prisma.io",
           name: "Vio",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -394,6 +404,7 @@ const items2 = [
           email: "vi21o@prisma.io",
           name: "Vio",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },
@@ -430,6 +441,7 @@ const items2 = [
           email: "v21io@prisma.io",
           name: "Vio",
           password: "hola",
+          stripeid: "321123"
         },
       },
     },

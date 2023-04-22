@@ -21,7 +21,8 @@ import {
   ListItemButton,
   Divider,
 } from "@mui/material";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 function ResponsiveAppBar() {
   const [state, setState] = React.useState({
@@ -32,6 +33,8 @@ function ResponsiveAppBar() {
   });
 
   const { isSignedIn, user } = useUser();
+  const router = useRouter();
+  const { signOut } = useClerk();
   const authVal = isSignedIn ? "logout" : "sign-in";
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -71,7 +74,7 @@ function ResponsiveAppBar() {
         ) : (
           <></>
         )}
-        {["sell", "shop","Purchases"].map((text, index) => (
+        {["sell", "shop", "Purchases"].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ fontWeight: "700" }}>
             <Link
               href={`/${text}`}
@@ -88,8 +91,9 @@ function ResponsiveAppBar() {
             </Link>
           </ListItem>
         ))}
-          <ListItem disablePadding sx={{ fontWeight: "700" }}>
-          {isSignedIn ? (<Link
+        <ListItem disablePadding sx={{ fontWeight: "700" }}>
+          {isSignedIn ? (
+            <Link
               href={`/listings/${user.primaryEmailAddress.emailAddress}`}
               style={{
                 textDecoration: "none",
@@ -101,11 +105,31 @@ function ResponsiveAppBar() {
               <ListItemButton sx={{ fontWeight: "700" }}>
                 <ListItemText primary={"Your Listings".toUpperCase()} />
               </ListItemButton>
-            </Link>) : <></>}
-          </ListItem>
-          <ListItem disablePadding sx={{ fontWeight: "700" }}>
-          <Link
-              href={`/${authVal}`}
+            </Link>
+          ) : (
+            <></>
+          )}
+        </ListItem>
+        <ListItem disablePadding sx={{ fontWeight: "700" }}>
+          {isSignedIn ? (
+            <ListItemButton
+              sx={{
+                fontWeight: "700",
+                textDecoration: "none",
+                padding: ".5rem 0 0 1rem",
+                margin: 0,
+                color: "black",
+              }}
+              onClick={() => {
+                router.push("/");
+                return signOut();
+              }}
+            >
+              <ListItemText primary={"logout".toUpperCase()} />
+            </ListItemButton>
+          ) : (
+            <Link
+              href={`/sign-in`}
               style={{
                 textDecoration: "none",
                 padding: 0,
@@ -114,10 +138,11 @@ function ResponsiveAppBar() {
               }}
             >
               <ListItemButton sx={{ fontWeight: "700" }}>
-                <ListItemText primary={authVal.toUpperCase()} />
+                <ListItemText primary={"Sign-in".toUpperCase()} />
               </ListItemButton>
             </Link>
-          </ListItem>
+          )}
+        </ListItem>
       </List>
       <Divider />
     </Box>
@@ -219,7 +244,10 @@ function ResponsiveAppBar() {
             }}
           >
             {isSignedIn ? (
-              <Link href={`/myfavs/${user.primaryEmailAddress.emailAddress}`} sx={{ border: "none" }}>
+              <Link
+                href={`/myfavs/${user.primaryEmailAddress.emailAddress}`}
+                sx={{ border: "none" }}
+              >
                 <Button
                   key="favorites"
                   sx={{

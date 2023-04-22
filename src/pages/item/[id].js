@@ -187,8 +187,10 @@ const ItemPage = () => {
     e.preventDefault();
     // Create a Checkout Session.
     const response = await fetchPostJSON("/api/checkout_sessions", {
-      amount: 345,
+      amount: item.price,
       name: item.title,
+      shipping: item.shipping,
+      accountId: item.accountId || "acct_1MzP7vPGe7Lw3Ty8"
     });
 
     if (response.statusCode === 500) {

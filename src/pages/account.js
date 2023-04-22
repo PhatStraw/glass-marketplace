@@ -11,6 +11,7 @@ import {
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useClerk } from "@clerk/clerk-react";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 const user1 = {
   name: "John Doe",
@@ -36,6 +37,7 @@ const handleSubmit = async (e) => {
 export default function Account() {
   const { user } = useUser();
   const { signOut } = useClerk();
+  const router = useRouter()
   return (
     <>
       {user ? (
@@ -45,6 +47,7 @@ export default function Account() {
             sx={{ margin: "0 1rem 2rem 1rem" }}
             display="flex"
             justifyItems="space-between"
+            onClick={()=> router.push(`/listings/${user.primaryEmailAddress.emailAddress}`)}
           >
             <Box
               sx={{ margin: "0 1rem 0 0" }}
