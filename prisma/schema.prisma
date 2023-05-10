@@ -9,62 +9,68 @@ datasource db {
 }
 
 model Purchase {
-  id       String    @id @default(uuid())
-  quantity Int
-  item     Item      @relation(fields: [itemId], references: [id])
-  itemId   String
-  user     User      @relation(fields: [userId], references: [id])
-  userId   String
+  id        String   @id @default(uuid())
+  quantity  Int
+  item      Item     @relation(fields: [itemId], references: [id])
+  itemId    String
+  buyer     User     @relation(name: "buyer", fields: [buyerId], references: [id])
+  buyerId   String
+  seller    User     @relation(name: "seller", fields: [sellerId], references: [id])
+  sellerId  String
+  rating    String
   createdAt DateTime @default(now())
 
-  @@index([userId])
+  @@index([buyerId])
+  @@index([sellerId])
   @@index([itemId])
 }
 
 model Item {
-  id        String     @id @default(uuid())
-  createdAt DateTime?  @default(now())
-  updatedAt       DateTime? @updatedAt
-  title           String
-  content         String
-  type            GlassType @default(RECYCLER)
-  images          Image[]
-  published       Boolean   @default(false)
-  likes           Int       @default(0)
-  artist          String
-  color           String
-  condition       ConditionType
-  price           Int       
-  shipping        Int
-  owner           User      @relation(name: "owneritems", fields: [userId], references: [id], map: "item_owner")
-  favbyuser       User[]    @relation(name: "favorites")
-  purchases       Purchase[]
-  userId          String
+  id        String        @id @default(uuid())
+  createdAt DateTime?     @default(now())
+  updatedAt DateTime?     @updatedAt
+  title     String
+  content   String
+  type      GlassType     @default(RECYCLER)
+  images    Image[]
+  published Boolean       @default(true)
+  likes     Int           @default(0)
+  artist    String
+  color     String
+  condition ConditionType
+  price     Int
+  shipping  Int
+  owner     User          @relation(name: "owneritems", fields: [userId], references: [id], map: "item_owner")
+  favbyuser User[]        @relation(name: "favorites")
+  purchases Purchase[]
+  userId    String
 
   @@index([userId])
 }
 
 model Image {
-  id     String @id @default(uuid())
-  url    String 
-  item   Item?  @relation(fields: [itemId], references: [id])
+  id     String  @id @default(uuid())
+  url    String
+  item   Item?   @relation(fields: [itemId], references: [id])
   itemId String?
 
   @@index([itemId])
 }
 
 model User {
-  id          String      @id @default(uuid())
-  createdAt   DateTime    @default(now())
-  email       String      @unique
-  password    String
-  name        String
-  role        Role        @default(USER)
-  items       Item[]      @relation(name: "owneritems")
-  favorites   Item[]      @relation(name: "favorites")
-  stripelink  String?
-  stripeid     String
-  purchases   Purchase[]
+  id         String     @id @default(uuid())
+  createdAt  DateTime   @default(now())
+  email      String     @unique
+  password   String
+  name       String
+  bio        String?
+  role       Role       @default(USER)
+  items      Item[]     @relation(name: "owneritems")
+  favorites  Item[]     @relation(name: "favorites")
+  stripelink String?
+  stripeid   String
+  buyer      Purchase[] @relation(name: "buyer")
+  seller     Purchase[] @relation(name: "seller")
 }
 
 enum Role {
@@ -76,6 +82,7 @@ enum ConditionType {
   NEW
   USED
 }
+
 enum GlassType {
   RECYCLER
   INCLINE

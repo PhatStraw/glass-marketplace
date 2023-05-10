@@ -1,50 +1,38 @@
 import {
-    Box,
-    Divider,
-    Typography,
-    ImageList,
-    ImageListItem,
-  } from "@mui/material";
-  import { useRouter } from 'next/router'
-  import Link from "next/link";
-  import React, { useEffect } from "react";
-  
-  export default function PurchasesPage() {
-    const [purchases, setPurchases] = React.useState([])
-    const router = useRouter()
-    const { email } = router.query
-    useEffect(()=>{
-        const getPurchases = async ()=>{
-            const response = await fetch("/api/get-purchases", {
-              method: "POST",
-              body: JSON.stringify({email})
-            })
-            const data = await response.json()
-            setPurchases(data)
-        }
-        getPurchases()
-    }, [email])
-    return (
-      <Box pt={4}>
-        <Box pt={4} display="flex" flexDirection="column">
-          <Typography
-            variant="h6"
-            pt={2}
-            sx={{ fontWeight: "bold", textAlign: "center" }}
-          >
-            Your Items
-          </Typography>
-          <Typography
-            variant="div"
-            pt={2}
-            pb={4}
-            sx={{ fontWeight: "bold", textAlign: "center", color: "grey" }}
-          >
-            Below are the items you have posted for sale.
-          </Typography>
-          <Divider />
-          <ImageList cols={2} gap={10} sx={{padding: '1rem'}} rowHeight={365}>
-            {purchases[0]?(purchases.map((item) => (
+  Box,
+  Divider,
+  Typography,
+  ImageList,
+  ImageListItem,
+} from "@mui/material";
+import Link from "next/link";
+import React, { useEffect } from "react";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+export default function FavsPage({ favs }) {
+  return (
+    <Box pt={4}>
+      <Box pt={4} display="flex" flexDirection="column">
+        <Typography
+          variant="h6"
+          pt={2}
+          sx={{ fontWeight: "bold", textAlign: "center" }}
+        >
+          Favorites
+        </Typography>
+        <Typography
+          variant="div"
+          pt={2}
+          pb={4}
+          sx={{ fontWeight: "bold", textAlign: "center", color: "grey" }}
+        >
+          Below are the items you have favorited.
+        </Typography>
+        <Divider />
+        <ImageList cols={2} gap={10} sx={{ padding: "1rem" }} rowHeight={365}>
+          {favs ? (
+            favs.map((item) => (
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 key={item.id}
@@ -108,10 +96,51 @@ import {
                   </Box>
                 </ImageListItem>
               </Link>
-            ))): <>No Purchases Found</>}
-          </ImageList>
-        </Box>
+            ))
+          ) : (
+            <>No Favs Found</>
+          )}
+        </ImageList>
       </Box>
-    );
-  }
-  
+    </Box>
+  );
+}
+
+export async function getStaticPaths() {
+  // Fetch the list of item IDs from your API or database
+  const users = await prisma.user.findMany();
+  // Map the item IDs to an array of objects with the `params` key
+  const paths = users.map((user) => ({ params: { id: user.id.toString() } }));
+
+  return {
+    paths,
+    fallback: false, // or 'blocking' or 'true'
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { id } = params;
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+  const favoritedItems = await prisma.item.findMany({
+    where: {
+      favbyuser: {
+        some: {
+          id: user.id,
+        },
+      },
+    },
+    include: {
+      images: true,
+    },
+  });
+  const favItems = JSON.parse(JSON.stringify(favoritedItems));
+  return {
+    props: {
+      favs: favItems,
+    },
+  };
+}

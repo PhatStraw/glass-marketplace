@@ -27,7 +27,7 @@ export default function ItemSimilarListings(props){
     console.log(newItems)
     }
     getSimilar()
-  }, [])
+  }, [props.item.type])
     return(
         <Box>
         <ListItemButton>

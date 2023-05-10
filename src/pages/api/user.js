@@ -24,15 +24,11 @@ export default async function handler(req, res) {
 }
 
 async function getUser(req, res) {
-    const {email} = JSON.parse(req.body)
-    console.log(email)
+    const body = JSON.parse(req.body)
   try {
     const user = await prisma.user.findUnique({
-      where: {
-        email: email
-      }
+      where: body
     })
-    console.log(user)
     return res.status(200).json(user)
   } catch (error) {
     console.error('Request error', error)

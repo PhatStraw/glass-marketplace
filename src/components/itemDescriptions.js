@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import { useUser } from "@clerk/nextjs";
 import Favorite from "@mui/icons-material/Favorite";
@@ -7,13 +7,16 @@ import { Box, Typography } from "@mui/material";
 
 export default function ItemDescription({ item }) {
   const { user } = useUser();
-  const [fav, setFav] = React.useState(
-    item.favbyuser.map((i) => {
-      if (i.email === user.primaryEmailAddress.emailAddress) {
-        return true;
-      }
-    })
-  );
+  const [fav, setFav] = React.useState(false);
+    useEffect(()=>{
+      item.favbyuser.map((i) => {
+        console.log('item', i.email)
+        console.log('user', user.primaryEmailAddress.emailAddress)
+        if (i.email === user.primaryEmailAddress.emailAddress) {
+          setFav(true);
+        }
+      })
+  }, [user, item.favbyuser])
   const [total, setTotal] = React.useState(item.likes);
   
   const handleFav = () => {
@@ -32,8 +35,10 @@ export default function ItemDescription({ item }) {
         setTotal(total - 1);
       }
     };
-    changeFav();
-    setFav(!fav);
+    if(user){
+      changeFav();
+      setFav(!fav);
+    }
   };
   return (
     <Box pt={1}>

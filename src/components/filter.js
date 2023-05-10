@@ -71,7 +71,7 @@ export default function ItemFilter(props) {
         alignContent: "center",
         justifyContent: "space-between",
         mb: 2,
-        padding: "0 20px",
+        padding: "10px 20px",
       }}
       id="navbar"
     >

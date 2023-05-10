@@ -16,10 +16,15 @@ import { useRouter } from "next/router";
 //   "/foo"           for pages/foo/index.js
 //   "/foo/bar"       for pages/foo/bar.js
 //   "/foo/[...bar]"  for pages/foo/[...bar].js
-const publicPages = ["/","/shop", "/sign-in"];
+const publicPages = ["/","/shop", "/sign-in", "/item/[id]", "/listings/[email]"];
 
 // pages/_app.js
 import { Kanit } from "next/font/google";
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearch } from 'react-instantsearch-hooks-web';
+import { autocomplete } from '@algolia/autocomplete-js';
+import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions'
+const searchClient = algoliasearch('F0MWT13LOM', 'bf990fcb72eb08ab7ebb75bacb6a98a3');
 
 // If loading a variable font, you don't need to specify the font weight
 const roboto = Kanit({ subsets: ["latin"], weight: "400" });
@@ -29,6 +34,7 @@ export default function App({ Component, pageProps }) {
   const isPublicPage = publicPages.includes(pathname);
   return (
     <main className={roboto.className}>
+      <InstantSearch searchClient={searchClient} indexName="demo_ecommerce">
       <ClerkProvider
         {...pageProps}
         frontendApi="sk_test_OsJ2RpjBOYssqGqs48HiBl4GrSMxvsWE2eO69nXuxe"
@@ -54,6 +60,7 @@ export default function App({ Component, pageProps }) {
           </Layout>
         </StyledEngineProvider>
       </ClerkProvider>
+      </InstantSearch>
     </main>
   );
 }

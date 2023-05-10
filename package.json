@@ -10,6 +10,10 @@
     "seed": "node prisma/seed.js"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.9.2",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.9.2",
+    "@algolia/autocomplete-plugin-recent-searches": "^1.9.2",
+    "@algolia/autocomplete-theme-classic": "^1.9.2",
     "@clerk/clerk-sdk-node": "^4.8.5",
     "@clerk/nextjs": "^4.11.13",
     "@easypost/api": "^6.1.0",
@@ -20,6 +24,7 @@
     "@mui/system": "^5.11.14",
     "@prisma/client": "^4.11.0",
     "@stripe/stripe-js": "^1.52.0",
+    "algoliasearch": "^4.17.0",
     "cloudinary": "^1.35.0",
     "datauri": "^4.1.0",
     "eslint": "8.36.0",
@@ -35,8 +40,12 @@
     "path": "^0.12.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-instantsearch-hooks": "^6.43.0",
+    "react-instantsearch-hooks-web": "^6.43.0",
+    "sendbird": "^3.1.32",
     "stripe": "^11.17.0",
-    "swiper": "^9.1.1"
+    "swiper": "^9.1.1",
+    "talkjs": "^0.15.9"
   },
   "devDependencies": {
     "prisma": "^4.11.0"

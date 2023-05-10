@@ -35,9 +35,22 @@ const handleSubmit = async (e) => {
 };
 
 export default function Account() {
+  const [liveUser, setLiveUser] = React.useState({})
   const { user } = useUser();
   const { signOut } = useClerk();
   const router = useRouter()
+  React.useEffect(()=> {
+    const getUser = async () => {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
+      });
+      const data = await response.json();
+      console.log(data);
+      setLiveUser(data)
+    }
+    getUser()
+  },[user])
   return (
     <>
       {user ? (
@@ -47,7 +60,7 @@ export default function Account() {
             sx={{ margin: "0 1rem 2rem 1rem" }}
             display="flex"
             justifyItems="space-between"
-            onClick={()=> router.push(`/listings/${user.primaryEmailAddress.emailAddress}`)}
+            onClick={()=> router.push(`/listings/${liveUser.id}`)}
           >
             <Box
               sx={{ margin: "0 1rem 0 0" }}
@@ -88,10 +101,18 @@ export default function Account() {
                   <ListItemText primary="Payments" />
                   <ArrowRightIcon />
                 </ListItemButton>
-                <ListItemButton>
+                <Link
+                  href={`/purchases/${liveUser.id}`}
+                  style={{
+                    display: "flex",
+                    margin: "0.5rem 1rem 0 1rem",
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                >
                   <ListItemText primary="Purchases" />
                   <ArrowRightIcon />
-                </ListItemButton>
+                </Link>
               </Box>
               <Box>
                 <Typography

@@ -2,7 +2,9 @@ import Stripe from "stripe";
 import { buffer } from "micro";
 import Cors from "micro-cors";
 import EasyPostClient from "@easypost/api";
+const { PrismaClient } = require("@prisma/client");
 
+const prisma = new PrismaClient();
 const cors = Cors({
   allowMethods: ["POST", "HEAD"],
 });
@@ -41,60 +43,34 @@ async function handler(req, res) {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
-    console.log("TYPE___",event.type)
     // Handle the event
     switch (event.type) {
       case "checkout.session.completed":
         const checkoutSucceeded = event.data.object;
         // Then define and call a function to handle the event checkout.session.completed
-        console.log("---CHECKOUT SUCCEEDED OBJECT---", checkoutSucceeded);
-        
-        // const newPurchase = await prisma.purchase.create({
-        //   data: {
-        //     quantity: <QUANTITY>,
-        //     item: {
-        //       connect: {
-        //         id: <ITEM_ID>
-        //       }
-        //     },
-        //     user: {
-        //       connect: {
-        //         id: <USER_ID>
-        //       }
-        //     }
-        //   }
-        // });
-        // const shipment = await client.Shipment.create({
-        //   from_address: {
-        //     street1: "417 MONTGOMERY ST",
-        //     street2: "FLOOR 5",
-        //     city: "SAN FRANCISCO",
-        //     state: "CA",
-        //     zip: "94104",
-        //     country: "US",
-        //     company: "EasyPost",
-        //     phone: "415-123-4567",
-        //   },
-        //   to_address: {
-        //     name: checkoutSucceeded.customer_details.name,
-        //     street1: checkoutSucceeded.customer_details.addess.line1,
-        //     city: checkoutSucceeded.customer_details.addess.city,
-        //     state: checkoutSucceeded.customer_details.addess.state,
-        //     zip: checkoutSucceeded.customer_details.addess.postal_code,
-        //     country: checkoutSucceeded.customer_details.addess.country,
-        //     phone: checkoutSucceeded.customer_details.phone ? checkoutSucceeded.customer_details.phone : checkoutSucceeded.customer_details.email,
-        //   },
-        //   parcel: {
-        //     length: 8,
-        //     width: 5,
-        //     height: 5,
-        //     weight: 5,
-        //   },
-        // });
-        // const boughtShipment = await client.Shipment.buy(
-        //   shipment.id,
-        //   shipment.lowestRate()
-        // );
+        console.log("---CHECKOUT SUCCEEDED OBJECT---", checkoutSucceeded.customer_details);
+        const buyer = await prisma.user.findUnique({
+          where: {
+            email: checkoutSucceeded.customer_details.email
+          }
+        })
+        if(!buyer)return res.status(404).json({ error: 'User not found' });
+        const newPurchase = await prisma.purchase.create({
+          data: {
+            quantity: 1,
+            item: {
+              connect: {
+                id: checkoutSucceeded.metadata.itemID
+              }
+            },
+            user: {
+              connect: {
+                id: buyer.id
+              }
+            }
+          }
+        });
+        console.log("new Purchase",newPurchase)
 
         break;
       // ... handle other event types

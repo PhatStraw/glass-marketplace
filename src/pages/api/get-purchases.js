@@ -3,11 +3,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default async function handle(req, res) {
-    const { email } = JSON.parse(req.body);
+    const { id } = JSON.parse(req.body);
     try {
         const user = await prisma.user.findUnique({
             where: {
-                email
+                id
             }
         })
         if(!user) return res.status(404).json({ error: 'User not found' });
@@ -20,6 +20,9 @@ export default async function handle(req, res) {
                   }
                 }
               }
+            },
+            include: {
+              images: true,
             }
           });
         if(!user) return res.status(200).json({ message: "No Favorites Found" });

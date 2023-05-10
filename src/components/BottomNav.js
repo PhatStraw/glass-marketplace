@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import Link from "next/link";
 
 export default function BottomNav(props) {
   return (
@@ -24,6 +25,7 @@ export default function BottomNav(props) {
           padding: "15px",
           width: "45%",
           fontWeight: "bold",
+          textDecoration: "none",
           background: "black",
           color: "white!important",
         }}
@@ -32,11 +34,14 @@ export default function BottomNav(props) {
         {props.one}
       </Button>
       {props.two ? (
+        <Link 
+          href={`/chat/${props.owner}`}
+        >
         <Button
           value="Recents"
           sx={{
             padding: "15px",
-            width: "45%",
+            minWidth: "170px",
             fontWeight: "bold",
             color: "black",
             border: "solid black",
@@ -44,6 +49,8 @@ export default function BottomNav(props) {
         >
           {props.two}
         </Button>
+        
+        </Link>
       ) : (
         <></>
       )}

@@ -23,8 +23,12 @@ import {
 } from "@mui/material";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
+import { SearchBox, Hits } from 'react-instantsearch-hooks-web';
+import { Autocomplete } from "./Autocomplete";
 
 function ResponsiveAppBar() {
+  const [clicked, setClicked] = React.useState()
+  const [liveUser, setLiveUser] = React.useState()
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -33,9 +37,21 @@ function ResponsiveAppBar() {
   });
 
   const { isSignedIn, user } = useUser();
+  React.useEffect(()=> {
+    const getUser = async () => {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
+      });
+      const data = await response.json();
+      setLiveUser(data)
+    }
+    if(user){
+      getUser()
+    }
+  }, [user, liveUser])
   const router = useRouter();
   const { signOut } = useClerk();
-  const authVal = isSignedIn ? "logout" : "sign-in";
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -47,6 +63,16 @@ function ResponsiveAppBar() {
     setState({ ...state, [anchor]: open });
   };
 
+  function Hit({ hit }) {
+    return (
+      <article>
+        <p>{hit.categories[0]}</p>
+        <h6>{hit.name}</h6>
+        <p>${hit.price}</p>
+      </article>
+    );
+  }
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -55,7 +81,7 @@ function ResponsiveAppBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {isSignedIn ? (
+        {liveUser ? (
           <ListItem disablePadding sx={{ fontWeight: "700" }}>
             <Link
               href={"/account"}
@@ -74,7 +100,7 @@ function ResponsiveAppBar() {
         ) : (
           <></>
         )}
-        {["sell", "shop", "Purchases"].map((text, index) => (
+        {["sell", "shop"].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ fontWeight: "700" }}>
             <Link
               href={`/${text}`}
@@ -91,10 +117,29 @@ function ResponsiveAppBar() {
             </Link>
           </ListItem>
         ))}
-        <ListItem disablePadding sx={{ fontWeight: "700" }}>
-          {isSignedIn ? (
+                <ListItem disablePadding sx={{ fontWeight: "700" }}>
+          {liveUser ? (
             <Link
-              href={`/listings/${user.primaryEmailAddress.emailAddress}`}
+              href={`/purchases/${liveUser.id}`}
+              style={{
+                textDecoration: "none",
+                padding: 0,
+                margin: 0,
+                color: "black",
+              }}
+            >
+              <ListItemButton sx={{ fontWeight: "700" }}>
+                <ListItemText primary={"purchases".toUpperCase()} />
+              </ListItemButton>
+            </Link>
+          ) : (
+            <></>
+          )}
+        </ListItem>
+        <ListItem disablePadding sx={{ fontWeight: "700" }}>
+          {liveUser ? (
+            <Link
+              href={`/listings/${liveUser.id}`}
               style={{
                 textDecoration: "none",
                 padding: 0,
@@ -111,7 +156,7 @@ function ResponsiveAppBar() {
           )}
         </ListItem>
         <ListItem disablePadding sx={{ fontWeight: "700" }}>
-          {isSignedIn ? (
+          {liveUser ? (
             <ListItemButton
               sx={{
                 fontWeight: "700",
@@ -210,7 +255,7 @@ function ResponsiveAppBar() {
             component="a"
             href="/"
             sx={{
-              pr: 8,
+              pr: 6,
               display: { xs: "flex" },
               flexGrow: 1,
               fontWeight: 700,
@@ -223,29 +268,33 @@ function ResponsiveAppBar() {
             Headies
           </Typography>
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <Box sx={{
+                      padding: 0,
+                      margin: 0
+                    }}>
+                      <Autocomplete
+                          placeholder="Search products"
+                          detachedMediaQuery="none"
+                           openOnFocus
+                      />
+                      {/* <Hits hitComponent={Hit} /> */}
+                      <div id="autocomplete"></div>
+                    </Box>
+          
 
           <Box
             sx={{
               display: "flex",
-              minWidth: "30%",
+              minWidth: "25%",
               p: 0,
               m: 0,
               alignItems: "center",
               justifyContent: "end",
             }}
           >
-            {isSignedIn ? (
+            {liveUser ? (
               <Link
-                href={`/myfavs/${user.primaryEmailAddress.emailAddress}`}
+                href={`/myfavs/${liveUser.id}`}
                 sx={{ border: "none" }}
               >
                 <Button

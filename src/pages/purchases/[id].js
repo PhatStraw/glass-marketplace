@@ -8,23 +8,10 @@ import {
   import { useRouter } from 'next/router'
   import Link from "next/link";
   import React, { useEffect } from "react";
+  import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
   
-  export default function ListingsPage() {
-    const [listings, setListings] = React.useState([])
-    const router = useRouter()
-    const { email } = router.query
-    useEffect(()=>{
-        const getListings = async ()=>{
-            const response = await fetch("/api/get-listings", {
-              method: "POST",
-              body: JSON.stringify({email})
-            })
-            const data = await response.json()
-            console.log(data)
-            setListings(data)
-        }
-        getListings()
-    }, [email])
+  export default function PurchasesPage({purchases}) {
     return (
       <Box pt={4}>
         <Box pt={4} display="flex" flexDirection="column">
@@ -33,7 +20,7 @@ import {
             pt={2}
             sx={{ fontWeight: "bold", textAlign: "center" }}
           >
-            Your Items
+            Your Purchases
           </Typography>
           <Typography
             variant="div"
@@ -41,11 +28,11 @@ import {
             pb={4}
             sx={{ fontWeight: "bold", textAlign: "center", color: "grey" }}
           >
-            Below are the items you have posted for sale.
+            Below are the items you have bought.
           </Typography>
           <Divider />
           <ImageList cols={2} gap={10} sx={{padding: '1rem'}} rowHeight={365}>
-            {listings[0]?(listings.map((item) => item.images[0] ? (
+            {purchases[0]?(purchases.map((item) => (
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 key={item.id}
@@ -109,10 +96,50 @@ import {
                   </Box>
                 </ImageListItem>
               </Link>
-            ): <></>)): <>No Listings Found</>}
+            ))): <>No Purchases Found</>}
           </ImageList>
         </Box>
       </Box>
     );
   }
   
+  export async function getStaticPaths() {
+    // Fetch the list of item IDs from your API or database
+    const users = await prisma.user.findMany();
+    // Map the item IDs to an array of objects with the `params` key
+    const paths = users.map((user) => ({ params: { id: user.id.toString() } }));
+  
+    return {
+      paths,
+      fallback: false, // or 'blocking' or 'true'
+    };
+  }
+  
+  export async function getStaticProps({ params }) {
+    const { id } = params;
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    const userPurchases = await prisma.item.findMany({
+      where: {
+        purchases: {
+          some: {
+            user: {
+              id: user.id
+            }
+          }
+        }
+      },
+      include: {
+        images: true,
+      }
+    });
+    const Items = JSON.parse(JSON.stringify(userPurchases));
+    return {
+      props: {
+        purchases: Items,
+      },
+    };
+  }
