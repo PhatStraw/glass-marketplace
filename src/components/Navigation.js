@@ -85,7 +85,7 @@ function ResponsiveAppBar() {
       console.log("DATA-", data)
       setLiveUser(data)
     }
-    console.log("USER-", user)
+    console.log("USER-", user.primaryEmailAddress.emailAddress)
     if(user){
       getUser()
       console.log("liveUser-", liveUser)
