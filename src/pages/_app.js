@@ -9,7 +9,7 @@ import {
 } from "@clerk/nextjs";
 import "../styles/globals.css";
 import { useRouter } from "next/router";
-
+import React from "react";
 //  List pages you want to be publicly accessible, or leave empty if
 //  every page requires authentication. Use this naming strategy:
 //   "/"              for pages/index.js
@@ -22,19 +22,29 @@ const publicPages = ["/","/shop", "/sign-in", "/item/[id]", "/listings/[email]"]
 import { Kanit } from "next/font/google";
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch } from 'react-instantsearch-hooks-web';
-import { autocomplete } from '@algolia/autocomplete-js';
-import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions'
-const searchClient = algoliasearch('F0MWT13LOM', 'bf990fcb72eb08ab7ebb75bacb6a98a3');
+import "@algolia/autocomplete-theme-classic";
+import 'instantsearch.css/themes/satellite.css';
+const searchClient = algoliasearch('Y22DSFGSTV', 'd13ec2902d97cbfbf1df02e11df0ea5d')
 
 // If loading a variable font, you don't need to specify the font weight
 const roboto = Kanit({ subsets: ["latin"], weight: "400" });
 
 export default function App({ Component, pageProps }) {
   const { pathname } = useRouter();
+  const [uiState, setUiState] = React.useState({});
   const isPublicPage = publicPages.includes(pathname);
+  const handleSearchStateChange = searchState => {
+    // Access the selected refinements from searchState
+    console.log(searchState)
+    const selectedRefinements = searchState.uiState.dev_headies.refinementList?.["brand"] || [];
+
+    // Do something with the selected refinements
+    console.log(selectedRefinements);
+    setUiState(searchState.uiState);
+  };
   return (
     <main className={roboto.className}>
-      <InstantSearch searchClient={searchClient} indexName="demo_ecommerce">
+      <InstantSearch searchClient={searchClient} indexName="dev_headies" searchState={uiState} onStateChange={handleSearchStateChange}>
       <ClerkProvider
         {...pageProps}
         frontendApi="sk_test_OsJ2RpjBOYssqGqs48HiBl4GrSMxvsWE2eO69nXuxe"

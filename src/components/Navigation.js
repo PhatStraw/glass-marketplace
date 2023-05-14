@@ -21,14 +21,52 @@ import {
   ListItemButton,
   Divider,
 } from "@mui/material";
+import {
+  ClockIcon,
+  Bars3Icon,
+  ShoppingBagIcon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  ArrowUpLeftIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
+
 import { useUser, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
-import { SearchBox, Hits } from 'react-instantsearch-hooks-web';
+import { autocomplete, getAlgoliaResults } from '@algolia/autocomplete-js';
+import algoliasearch from 'algoliasearch';
+import { usePagination, useSearchBox } from "react-instantsearch-hooks";
+import { Fragment, useState } from 'react';
+import Image from 'next/image';
+import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions';
+import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches';
+import {
+  AutocompleteItem,
+  AutocompleteItemAction,
+} from './AutoCompleteItem';
+import '@algolia/autocomplete-theme-classic';
 import { Autocomplete } from "./Autocomplete";
+const searchClient = algoliasearch(
+  'latency',
+  '1fcf68140f3db8a1352370a137f5e8d6'
+);
 
+import { useRef } from 'react';
+
+export function useLazyRef(initialValue) {
+  const ref = useRef(null);
+
+  return function getRef() {
+    if (ref.current === null) {
+      ref.current = initialValue();
+    }
+
+    return ref.current;
+  };
+}
 function ResponsiveAppBar() {
-  const [clicked, setClicked] = React.useState()
   const [liveUser, setLiveUser] = React.useState()
+  const [live, setLive] = React.useState(false)
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -49,7 +87,7 @@ function ResponsiveAppBar() {
     if(user){
       getUser()
     }
-  }, [user, liveUser])
+  }, [user])
   const router = useRouter();
   const { signOut } = useClerk();
   const toggleDrawer = (anchor, open) => (event) => {
@@ -62,16 +100,6 @@ function ResponsiveAppBar() {
 
     setState({ ...state, [anchor]: open });
   };
-
-  function Hit({ hit }) {
-    return (
-      <article>
-        <p>{hit.categories[0]}</p>
-        <h6>{hit.name}</h6>
-        <p>${hit.price}</p>
-      </article>
-    );
-  }
 
   const list = (anchor) => (
     <Box
@@ -193,46 +221,75 @@ function ResponsiveAppBar() {
     </Box>
   );
 
-  const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    border: "solid black",
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.black, 0.15),
-    },
-    width: "100%",
-    minWidth: "30%",
-    margin: "0",
-    [theme.breakpoints.up("sm")]: {
-      width: "50%",
-    },
-  }));
+  const getRecentSearchesPlugin = useLazyRef(() =>
+    createLocalStorageRecentSearchesPlugin({
+      key: 'RECENT_SEARCH',
+      limit: 5,
+      transformSource({ source, onTapAhead, onRemove }) {
+        return {
+          ...source,
+          templates: {
+            item({ item, components }) {
+              return (
+                <AutocompleteItem
+                  router={router}
+                  href={`/shop/?query=${item.label}`}
+                  icon={ClockIcon}
+                  actions={
+                    <>
+                      <AutocompleteItemAction
+                        icon={TrashIcon}
+                        title="Remove this search"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          event.stopPropagation();
 
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        width: "12ch",
-        "&:focus": {
-          width: "20ch",
-        },
+                          onRemove(item.label);
+                        }}
+                      />
+                    </>
+                  }
+                >
+                  <components.ReverseHighlight hit={item} attribute="label" />
+                </AutocompleteItem>
+              );
+            },
+          },
+        };
       },
-    },
-  }));
+    })
+  );
+  const getQuerySuggestionsPlugin = useLazyRef(() =>
+    createQuerySuggestionsPlugin({
+      searchClient,
+      indexName: "devcon22_bm_products_query_suggestions",
+      transformSource({ source, onTapAhead }) {
+        return {
+          ...source,
+          getItemUrl({ item }) {
+            return `/shop/?query=${item.query}`;
+          },
+          templates: {
+            ...source.templates,
+            item({ item, components }) {
+              return (
+                <AutocompleteItem
+                  router={router}
+                  href={`/shop/?query=${item.query}`}
+                  icon={MagnifyingGlassIcon}
+                  actions={
+                    <Box></Box>
+                  }
+                >
+                  <components.ReverseHighlight hit={item} attribute="query" />
+                </AutocompleteItem>
+              );
+            },
+          },
+        };
+      },
+    })
+  );
   return (
     <AppBar
       position="static"
@@ -268,20 +325,35 @@ function ResponsiveAppBar() {
             Headies
           </Typography>
 
-          <Box sx={{
-                      padding: 0,
-                      margin: 0
-                    }}>
-                      <Autocomplete
-                          placeholder="Search products"
-                          detachedMediaQuery="none"
-                           openOnFocus
-                      />
-                      {/* <Hits hitComponent={Hit} /> */}
-                      <div id="autocomplete"></div>
-                    </Box>
-          
-
+          {/* <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search> */}
+          <Autocomplete
+                    initialState={{
+                      query: (router.query.query) || '',
+                    }}
+                    openOnFocus={true}
+                    placeholder="Search"
+                    detachedMediaQuery="(width: 100% max-width: 100%)"
+                    navigator={{
+                      navigate({ itemUrl }) {
+                        router.push(itemUrl);
+                      },
+                    }}
+                    onSubmit={({ state }) => {
+                      router.push(`/shop/?query=${state.query}`);
+                    }}
+                    plugins={[
+                      getRecentSearchesPlugin(),
+                      getQuerySuggestionsPlugin(),
+                    ]}
+                  />
           <Box
             sx={{
               display: "flex",

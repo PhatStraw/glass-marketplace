@@ -76,7 +76,7 @@ export default function HomeCard({ onSubmit, filter, setFilter }) {
             <Box
               onClick={() => {
                 setFilter({ ...filter, artist: item.artist });
-                onSubmit();
+                onSubmit(filter);
               }}
               key={item.id}
             >

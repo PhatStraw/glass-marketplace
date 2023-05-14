@@ -13,12 +13,23 @@ export default async function handler(req, res) {
 async function filter(req, res) {
   const body = JSON.parse(req.body)
   try{
-      const filteredItems = await prisma.item.findMany({
-        where: body,
-        include: {
-            images: true,
-          },
-    })
+    //   const filteredItems = await prisma.item.findMany({
+    //     where: body,
+    //     include: {
+    //         images: true,
+    //       },
+    // })
+    console.log("body",body)
+    const filteredItems = await prisma.item.findMany({
+      where: {
+        OR:[
+          body
+        ]
+      },
+      include: {
+          images: true,
+        },
+  })
     return res.status(200).json(filteredItems, { success: true })
   } catch (error) {
     console.error('Request error', error)

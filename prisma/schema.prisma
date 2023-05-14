@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -46,6 +47,9 @@ model Item {
   userId    String
 
   @@index([userId])
+  @@fulltext([artist])
+  @@fulltext([content])
+  @@fulltext([title])
 }
 
 model Image {
