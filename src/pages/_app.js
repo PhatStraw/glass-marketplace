@@ -44,11 +44,11 @@ export default function App({ Component, pageProps }) {
   };
   return (
     <main className={roboto.className}>
-      <InstantSearch searchClient={searchClient} indexName="dev_headies" searchState={uiState} onStateChange={handleSearchStateChange}>
+      <InstantSearch searchClient={searchClient} indexName="demo_ecommerce" searchState={uiState} onStateChange={handleSearchStateChange}>
       <ClerkProvider
         {...pageProps}
-        frontendApi="sk_test_OsJ2RpjBOYssqGqs48HiBl4GrSMxvsWE2eO69nXuxe"
-        publishableKey="pk_test_aGVscGZ1bC1hcGhpZC02LmNsZXJrLmFjY291bnRzLmRldiQ"
+        frontendApi={process.env.NEXT_CLERK_SECRET_KEY}
+        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       >
         <StyledEngineProvider injectFirst>
           <Layout>

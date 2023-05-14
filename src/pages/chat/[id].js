@@ -2,8 +2,7 @@ import Talk from "talkjs";
 import { useEffect, useState, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient(); 
+import { prisma } from "../../utils/prisma-helper"
 export default function Chat({to}) {
   const { user } = useUser();
   const router = useRouter();

@@ -1,6 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
+const {prisma} = require("../src/utils/prisma-helper.js");
 const { items, items2 } = require("./data.js");
-const prisma = new PrismaClient();
 const load = async () => {
   try {
     await prisma.image.deleteMany();

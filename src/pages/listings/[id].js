@@ -16,8 +16,7 @@ import {
   import { styled } from "@mui/material/styles";
   import { useClerk } from "@clerk/clerk-react";
 import { useUser } from "@clerk/nextjs";
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { prisma } from "../../utils/prisma-helper";
 
 const AvatarStyled = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(10),

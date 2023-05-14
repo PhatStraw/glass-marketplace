@@ -7,8 +7,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { prisma } from "../../utils/prisma-helper"
 
 export default function FavsPage({ favs }) {
   return (

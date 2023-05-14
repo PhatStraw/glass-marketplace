@@ -1,7 +1,5 @@
 import Stripe from "stripe";
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from "../../utils/prisma-helper"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     // https://github.com/stripe/stripe-node#configuration

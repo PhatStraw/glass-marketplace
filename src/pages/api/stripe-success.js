@@ -2,9 +2,7 @@ import Stripe from "stripe";
 import { buffer } from "micro";
 import Cors from "micro-cors";
 import EasyPostClient from "@easypost/api";
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import { prisma } from "../../utils/prisma-helper"
 const cors = Cors({
   allowMethods: ["POST", "HEAD"],
 });

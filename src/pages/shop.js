@@ -2,7 +2,7 @@ import { Box, Typography, Divider } from "@mui/material";
 import HomeCard from "../components/CuratedCard";
 import Feed from "../components/feed";
 import SalesCard from "../components/SalesCard";
-import { PrismaClient } from "@prisma/client";
+import {prisma} from "../utils/prisma-helper";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -75,7 +75,6 @@ export default function Shop({ items, staticFilter }) {
 // It won't be called on client-side, so you can even do
 // direct database queries.
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
   const data = await prisma.item.findMany({
     include: {
       images: true,

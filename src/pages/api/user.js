@@ -1,19 +1,15 @@
-import { PrismaClient } from '@prisma/client'
+import { prisma } from "../../utils/prisma-helper"
 const cloudinary = require('cloudinary').v2;
 
 
 // Configuration 
 cloudinary.config({
-  cloud_name: "dcmncwymq",
-  api_key: "127627484927622",
-  api_secret: "m80QvcDBAkbvzKLUOpNkz_gkwR8"
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 
-// Upload
-
-
-const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
@@ -25,6 +21,7 @@ export default async function handler(req, res) {
 
 async function getUser(req, res) {
     const body = JSON.parse(req.body)
+    console.log(body)
   try {
     const user = await prisma.user.findUnique({
       where: body

@@ -14,8 +14,7 @@ import ItemSimilarListings from "../../components/itemSimilarListing";
 import getStripe from "../../utils/get-stripe";
 import { fetchPostJSON } from "../../utils/api-helpers";
 import BottomNav from "components/components/BottomNav";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { prisma } from "../../utils/prisma-helper"
 const ItemPage = ({ item }) => {
   const [open, setOpen] = React.useState(true);
   const [isLoading, setLoading] = React.useState(false);

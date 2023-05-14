@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import {prisma} from  "../../utils/prisma-helper"
 
 export default async function handle(req, res) {
     const { id } = JSON.parse(req.body);
