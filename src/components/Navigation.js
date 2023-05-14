@@ -77,10 +77,10 @@ function ResponsiveAppBar() {
   const { isSignedIn, user } = useUser();
   React.useEffect(()=> {
     const getUser = async () => {
-      console.log("USER-", user.primaryEmailAddress.emailAddress)
+      console.log("USER-", user.primaryEmailAddress.a.emailAddress)
       const response = await fetch("/api/user", {
         method: "POST",
-        body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
+        body: JSON.stringify({ email: user.primaryEmailAddress.a.emailAddress}),
       });
       const data = await response.json();
       console.log("DATA-", data)
