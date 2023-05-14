@@ -75,22 +75,19 @@ function ResponsiveAppBar() {
   });
 
   const { isSignedIn, user } = useUser();
-  const { emailAddress } = user.primaryEmailAddress
   React.useEffect(()=> {
     const getUser = async () => {
       const response = await fetch("/api/user", {
         method: "POST",
-        body: JSON.stringify({ email: emailAddress}),
+        body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
       });
       const data = await response.json();
       setLiveUser(data)
     }
-    if(emailAddress){
-      console.log("USER-", emailAddress
-      )
+    if(user){
       getUser()
     }
-  }, [emailAddress])
+  }, [user])
   const router = useRouter();
   const { signOut } = useClerk();
   const toggleDrawer = (anchor, open) => (event) => {
