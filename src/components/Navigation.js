@@ -77,6 +77,7 @@ function ResponsiveAppBar() {
   const { isSignedIn, user } = useUser();
   React.useEffect(()=> {
     const getUser = async () => {
+      console.log("USER-", user.primaryEmailAddress.emailAddress)
       const response = await fetch("/api/user", {
         method: "POST",
         body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
@@ -85,7 +86,6 @@ function ResponsiveAppBar() {
       console.log("DATA-", data)
       setLiveUser(data)
     }
-    console.log("USER-", user.primaryEmailAddress.emailAddress)
     if(user){
       getUser()
       console.log("liveUser-", liveUser)
