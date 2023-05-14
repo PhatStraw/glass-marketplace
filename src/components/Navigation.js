@@ -82,6 +82,7 @@ function ResponsiveAppBar() {
         body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
       });
       const data = await response.json();
+      console.log("DATA-", data)
       setLiveUser(data)
     }
     console.log("USER-", user)
