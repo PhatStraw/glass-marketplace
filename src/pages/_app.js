@@ -49,9 +49,6 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         frontendApi="sk_test_OsJ2RpjBOYssqGqs48HiBl4GrSMxvsWE2eO69nXuxe"
         publishableKey="pk_test_aGVscGZ1bC1hcGhpZC02LmNsZXJrLmFjY291bnRzLmRldiQ"
-        signInUrl="/sign-in"
-        signOutUrl="/"
-        signUpUrl="/sign-up"
       >
         <StyledEngineProvider injectFirst>
           <Layout>
