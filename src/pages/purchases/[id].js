@@ -126,7 +126,7 @@ const prisma = new PrismaClient()
       where: {
         purchases: {
           some: {
-            user: {
+            buyer: {
               id: user.id
             }
           }

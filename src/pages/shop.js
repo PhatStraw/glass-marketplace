@@ -13,13 +13,15 @@ export default function Shop({ items, staticFilter }) {
   console.log(router)
   const { query } = router.query;
   useEffect(() => {
-    onSubmit(
-      {
-        title: {
-          search: query,
-        },
-      }
-    );
+    if(query){
+      onSubmit(
+        {
+          title: {
+            search: query,
+          },
+        }
+      );
+    }
   }, [query]);
   async function onSubmit(filter) {
       console.log("filter", filter)

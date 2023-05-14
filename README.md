@@ -12,15 +12,28 @@ yarn dev
 pnpm dev
 ```
 
+Replace the values in .env.local with your real API keys
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=PUBLISHABLE
+CLERK_SECRET_KEY=CLERK_SECRET_KEY
+NEXT_PUBLIC_CLERK_FRONTEND_API=clerkAPIKEY
+DATABASE_URL=PLANETSCALE_DB_URL
+DATABASE=YOURPLANETSCALEDB
+USERNAME=REPLACEWITHYOURPLANETSCALEUSERNAME
+HOST=REPLACEWITHYOURPLANETSCALEHOST
+PASSWORD=pscale_YOUR_PASSWORD
+MYSQL_ATTR_SSL_CA=PLANETSCALE
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+NEXT_PUBLIC_CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+EASYPOST_API_KEY=
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Prerequsites 
+- npm
+- cloudinary API
 
 ## Learn More
 
