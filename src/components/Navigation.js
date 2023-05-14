@@ -84,8 +84,10 @@ function ResponsiveAppBar() {
       const data = await response.json();
       setLiveUser(data)
     }
+    console.log("USER-", user)
     if(user){
       getUser()
+      console.log("liveUser-", liveUser)
     }
   }, [user])
   const router = useRouter();
