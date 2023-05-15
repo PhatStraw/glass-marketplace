@@ -21,7 +21,6 @@ export default async function handler(req, res) {
 
 async function getUser(req, res) {
     const body = JSON.parse(req.body)
-    console.log(body)
   try {
     const user = await prisma.user.findUnique({
       where: body

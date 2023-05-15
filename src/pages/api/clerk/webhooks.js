@@ -29,8 +29,6 @@ export default async function handler(req, res) {
       },
     });
 }
-// Handle the event
-console.log("New Data:", newData);
-
-res.status(200).send("ok");
+  // Handle the event
+  res.status(200).send("ok");
 }

@@ -10,7 +10,6 @@ export default function Shop({ items, staticFilter }) {
   const [filter, setFilter] = useState();
   const [pieces, setPieces] = useState(items);
   const router = useRouter();
-  console.log(router)
   const { query } = router.query;
   useEffect(() => {
     if(query){
@@ -24,7 +23,6 @@ export default function Shop({ items, staticFilter }) {
     }
   }, [query]);
   async function onSubmit(filter) {
-      console.log("filter", filter)
     const data = await fetch("/api/filter", {
       method: "POST",
       body: JSON.stringify(filter),
@@ -76,6 +74,9 @@ export default function Shop({ items, staticFilter }) {
 // direct database queries.
 export async function getStaticProps() {
   const data = await prisma.item.findMany({
+    where: {
+      published: true
+    },
     include: {
       images: true,
     },

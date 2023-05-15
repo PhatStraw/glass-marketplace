@@ -10,8 +10,6 @@ export default function ItemDescription({ item }) {
   const [fav, setFav] = React.useState(false);
     useEffect(()=>{
       item.favbyuser.map((i) => {
-        console.log('item', i.email)
-        console.log('user', user.primaryEmailAddress.emailAddress)
         if (i.email === user.primaryEmailAddress.emailAddress) {
           setFav(true);
         }

@@ -10,7 +10,11 @@ export default async function handler(req, res) {
 
 async function getItem(req, res) {
   try {
-    const items = await prisma.item.findMany()
+    const items = await prisma.item.findMany({ 
+      where: {
+        published: true
+      }
+    })
     
     return res.status(200).json(items, { success: true })
   } catch (error) {

@@ -28,7 +28,6 @@ const useMediaQuery = (width) => {
 };
 export default function Layout({ children }) {
   const isBreakpoint = useMediaQuery(540)
-  console.log('isBreak', isBreakpoint)
   return (
    <>
     {isBreakpoint? (

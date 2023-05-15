@@ -37,7 +37,6 @@ const Sell = () => {
         body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress }),
       });
       const data = await response.json();
-      console.log(data);
       setSeller(data);
       if(data.stripelink !== null){
         setStripeBool(true)
@@ -72,12 +71,10 @@ const Sell = () => {
       router.push("/");
     } else {
       alert("Something went wrong try again.");
-      console.log(data);
     }
   };
 
   const handleSell = async () => {
-    console.log(seller.stripeid)
     const response = await fetch("/api/seller-link", {
       method: "POST",
       body: JSON.stringify({accountId: seller.stripeid, email: user.primaryEmailAddress.emailAddress})

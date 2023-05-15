@@ -2,7 +2,6 @@ import cloudinary from "../../utils/cloudinary";
 
 async function handler(req, res) {
   try {
-      console.log(req)
     const signature = cloudinary.utils.api_sign_request(
       req.body.paramsToSign,
       process.env.CLOUDINARY_API_SECRET

@@ -24,7 +24,6 @@ export default function ItemSimilarListings(props){
     })
     const newItems = await data.json()
     setRelatedItems(newItems)
-    console.log(newItems)
     }
     getSimilar()
   }, [props.item.type])

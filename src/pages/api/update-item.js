@@ -4,14 +4,11 @@ export default async function handler(req, res) {
     const { userEmail, itemId } = JSON.parse(req.body);
   
     try {
-        console.log("----9----", req.body)
-
       const user = await prisma.user.findUnique({
         where: { 
             email: userEmail 
         },
       });
-      console.log("----14----")
 
   
       if (!user) {
@@ -30,7 +27,6 @@ export default async function handler(req, res) {
       const userAlreadyFavorited = item.favbyuser.some(
         (favUser) => favUser.id === user.id
       );
-      console.log("----33----")
 
   
       let updatedItem;
@@ -52,7 +48,6 @@ export default async function handler(req, res) {
         });
       return res.status(200).json({ item: updatedItem, like: false });
       } else {
-          console.log("----51----")
         updatedItem = await prisma.item.update({
           where: { id: itemId },
           include: { favbyuser: true },

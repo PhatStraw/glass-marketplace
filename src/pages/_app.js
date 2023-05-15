@@ -35,11 +35,9 @@ export default function App({ Component, pageProps }) {
   const isPublicPage = publicPages.includes(pathname);
   const handleSearchStateChange = searchState => {
     // Access the selected refinements from searchState
-    console.log(searchState)
     const selectedRefinements = searchState.uiState.dev_headies.refinementList?.["brand"] || [];
 
     // Do something with the selected refinements
-    console.log(selectedRefinements);
     setUiState(searchState.uiState);
   };
   return (

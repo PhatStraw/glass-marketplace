@@ -3,17 +3,16 @@ const stripe = require("stripe")(
 );
 
 export default async function handler(req, res) {
+  const body = JSON.parse(req.body)
   try {
-      // const customer = await stripe.customers.retrieve(session.user.stripeCustomerId);
-      const session = await stripe.billingPortal.sessions.create({
-        customer: "cus_NeFMcvORCmiQoP",
-        return_url: "http://localhost:3000/account",
-      });
+    const loginLink = await stripe.accounts.createLoginLink(
+      body.id
+    );
 
-    res.json(session);
-  } catch (err) {
-    const errorMessage =
-      err instanceof Error ? err.message : "Internal server error";
-    res.status(500).json({ statusCode: 500, message: errorMessage });
+    res.status(200).json({ url: loginLink.url });
+  } catch (error) {
+    console.error(error);
+    console.log(error)
+    res.status(500).json({ error: 'Unable to create account link.' });
   }
 }

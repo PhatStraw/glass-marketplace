@@ -25,20 +25,21 @@ const AvatarStyled = styled(Avatar)(({ theme }) => ({
   height: theme.spacing(10),
 }));
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const data = await fetch("/api/billing", {
-    method: "POST",
-  });
-  const session = await data.json();
-  window.location.href = session.url;
-};
 
 export default function Account() {
   const [liveUser, setLiveUser] = React.useState({})
   const { user } = useUser();
   const { signOut } = useClerk();
   const router = useRouter()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = await fetch("/api/billing", {
+      method: "POST",
+      body: JSON.stringify({id: liveUser.stripeid})
+    });
+    const session = await data.json()
+    router.push(session.url)
+  };
   React.useEffect(()=> {
     const getUser = async () => {
       const response = await fetch("/api/user", {
@@ -46,7 +47,6 @@ export default function Account() {
         body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress}),
       });
       const data = await response.json();
-      console.log(data);
       setLiveUser(data)
     }
     getUser()

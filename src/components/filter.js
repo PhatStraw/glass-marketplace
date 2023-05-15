@@ -34,7 +34,6 @@ export default function ItemFilter(props) {
     newCheckboxes[index] = event.target.checked;
     setCheckboxes(newCheckboxes);
     if(newCheckboxes[index]){
-      console.log(props.filter, value)
       props.setFilter({ ...props.filter, ...value });
     }else{
       const remove = delete props.filter.value

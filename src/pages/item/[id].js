@@ -18,7 +18,6 @@ import { prisma } from "../../utils/prisma-helper"
 const ItemPage = ({ item }) => {
   const [open, setOpen] = React.useState(true);
   const [isLoading, setLoading] = React.useState(false);
-  console.log("item",item)
   const handleClick = () => {
     setOpen(!open);
   };
@@ -31,7 +30,7 @@ const ItemPage = ({ item }) => {
       name: item.title,
       shipping: item.shipping,
       itemId: item.id,
-      accountId: item.accountId || "acct_1MzP7vPGe7Lw3Ty8",
+      accountId: item.owner.stripeid,
     });
 
     if (response.statusCode === 500) {
@@ -99,6 +98,7 @@ export async function getStaticProps({ params }) {
     include: {
       images: true,
       favbyuser: true,
+      owner: true
     },
   });
   const newItem = JSON.parse(JSON.stringify(data));

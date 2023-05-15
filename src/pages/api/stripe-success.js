@@ -46,7 +46,6 @@ async function handler(req, res) {
       case "checkout.session.completed":
         const checkoutSucceeded = event.data.object;
         // Then define and call a function to handle the event checkout.session.completed
-        console.log("---CHECKOUT SUCCEEDED OBJECT---", checkoutSucceeded.customer_details);
         const buyer = await prisma.user.findUnique({
           where: {
             email: checkoutSucceeded.customer_details.email
@@ -61,14 +60,25 @@ async function handler(req, res) {
                 id: checkoutSucceeded.metadata.itemID
               }
             },
-            user: {
+            buyer: {
               connect: {
                 id: buyer.id
               }
-            }
+            },
+            seller: {
+              connect: {
+                id: buyer.id
+              }
+            },
+            rating: "5"
           }
         });
-        console.log("new Purchase",newPurchase)
+        await prisma.item.update({
+          where: {
+            id: checkoutSucceeded.metadata.itemID
+          },
+          data: { published: false }
+        })
 
         break;
       // ... handle other event types
