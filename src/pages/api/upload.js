@@ -44,23 +44,7 @@ const handler = nc({
           userId: user.id,
         },
       });
-
-      // const client = algoliasearch(
-      //   "F0MWT13LOM",
-      //   "f8a99064a8a838f1a60693944f84f000"
-      // );
-
-      // const index = client.initIndex("demo_ecommerce");
-
-      // fetch("https://alg.li/doc-ecommerce.json")
-      //   .then(function (response) {
-      //     return response.json();
-      //   })
-      //   .then(function (products) {
-      //     return index.saveObjects(products, {
-      //       autoGenerateObjectIDIfNotExist: true,
-      //     });
-      //   });
+      
       res.status(200).json({ error: null, data: { newEntry, success: true } });
     } catch (error) {
       console.log(error);

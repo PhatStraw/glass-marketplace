@@ -47,8 +47,8 @@ import {
 import '@algolia/autocomplete-theme-classic';
 import { Autocomplete } from "./Autocomplete";
 const searchClient = algoliasearch(
-  'latency',
-  '1fcf68140f3db8a1352370a137f5e8d6'
+  "Y22DSFGSTV",
+  process.env.NEXT_ALGOLIA_NAV_KEY
 );
 
 import { useRef } from 'react';
@@ -230,6 +230,7 @@ function ResponsiveAppBar() {
           ...source,
           templates: {
             item({ item, components }) {
+              console.log("RECENT", item)
               return (
                 <AutocompleteItem
                   router={router}
@@ -262,7 +263,7 @@ function ResponsiveAppBar() {
   const getQuerySuggestionsPlugin = useLazyRef(() =>
     createQuerySuggestionsPlugin({
       searchClient,
-      indexName: "devcon22_bm_products_query_suggestions",
+      indexName: "headies_query_suggestions",
       transformSource({ source, onTapAhead }) {
         return {
           ...source,
@@ -272,6 +273,7 @@ function ResponsiveAppBar() {
           templates: {
             ...source.templates,
             item({ item, components }) {
+              console.log("QUERY", item)
               return (
                 <AutocompleteItem
                   router={router}

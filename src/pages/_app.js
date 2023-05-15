@@ -22,10 +22,9 @@ const publicPages = ["/","/shop", "/sign-in", "/item/[id]", "/listings/[email]"]
 import { Kanit } from "next/font/google";
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch } from 'react-instantsearch-hooks-web';
+import { client } from "../utils/algolia";
 import "@algolia/autocomplete-theme-classic";
 import 'instantsearch.css/themes/satellite.css';
-const searchClient = algoliasearch('Y22DSFGSTV', 'd13ec2902d97cbfbf1df02e11df0ea5d')
-
 // If loading a variable font, you don't need to specify the font weight
 const roboto = Kanit({ subsets: ["latin"], weight: "400" });
 
@@ -57,7 +56,7 @@ export default function App({ Component, pageProps }) {
   };
   return (
     <main className={roboto.className}>
-      <InstantSearch searchClient={searchClient} indexName="demo_ecommerce" searchState={uiState} onStateChange={handleSearchStateChange}>
+      <InstantSearch searchClient={client} indexName="headies" searchState={uiState} onStateChange={handleSearchStateChange}>
       <ClerkProvider
         {...pageProps}
         frontendApi={process.env.NEXT_CLERK_SECRET_KEY}
