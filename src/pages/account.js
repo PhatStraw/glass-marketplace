@@ -7,6 +7,8 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
+  Rating,
+  Button
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useClerk } from "@clerk/clerk-react";
@@ -76,7 +78,11 @@ export default function Account() {
               <Typography variant="subtitle1">
                 {user.username ? user.username : user.fullName}
               </Typography>
-              <Typography variant="body1">{user1.bio}</Typography>
+              <Box sx={{display: "flex"}}>
+                <Rating value={"3.5"}/>
+                <Typography>5 reviews</Typography>
+              </Box>
+                <Typography variant="div" style={{maxWidth: '50%'}}>{user.bio}</Typography>
             </Box>
             <Box m="auto">
               <ArrowRightIcon />

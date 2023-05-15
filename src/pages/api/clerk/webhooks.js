@@ -3,7 +3,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   const event = req.body;
-  console.log("EVENT",event)
   let newData
   if (event.type === "user.created") {
     const account = await stripe.accounts.create({
