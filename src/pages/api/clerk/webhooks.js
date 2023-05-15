@@ -3,7 +3,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   const event = req.body;
-  console.log(event)
+  console.log("EVENT",event)
   let newData
   if (event.type === "user.created") {
     const account = await stripe.accounts.create({
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     newData = await prisma.user.create({
       data: {
         email: event.data.email_addresses[0]["email_address"],
-        name: event.data.first_name,
+        name: event.data.first_name || event.data.username,
         password: "NewNew123!",
         stripeid: account.id
       },
