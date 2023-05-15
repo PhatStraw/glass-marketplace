@@ -29,6 +29,21 @@ const searchClient = algoliasearch('Y22DSFGSTV', 'd13ec2902d97cbfbf1df02e11df0ea
 // If loading a variable font, you don't need to specify the font weight
 const roboto = Kanit({ subsets: ["latin"], weight: "400" });
 
+if (process.window) {
+  // intercept and prevent wasteful /_next/data/*.json request until Next.js issue is resolved
+  // https://github.com/vercel/next.js/discussions/38414
+  // https://github.com/vercel/next.js/issues/40611
+  const { fetch: originalFetch } = window;
+  const nextDataRequestRegex = /^\/_next\/data\/.*\.json/;
+  window.fetch = async (...args) => {
+    const [url] = args;
+    if (nextDataRequestRegex.test(url)) {
+      return Promise.reject();
+    }
+    return originalFetch(...args);
+  };
+}
+
 export default function App({ Component, pageProps }) {
   const { pathname } = useRouter();
   const [uiState, setUiState] = React.useState({});
